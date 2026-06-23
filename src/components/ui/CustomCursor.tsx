@@ -20,11 +20,12 @@ export const CustomCursor = () => {
 
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      if (target.closest('a') || target.closest('button') || target.closest('[data-cursor="hover"]')) {
+      const cursorElement = target.closest('[data-cursor-text]');
+      
+      if (cursorElement || target.closest('a') || target.closest('button') || target.closest('[data-cursor="hover"]')) {
         setIsHovering(true);
-        const cursorText = target.closest('[data-cursor-text]')?.getAttribute('data-cursor-text');
-        if (cursorText) {
-          setHoverText(cursorText);
+        if (cursorElement) {
+          setHoverText(cursorElement.getAttribute('data-cursor-text') || '');
         } else {
           setHoverText('');
         }

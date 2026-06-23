@@ -135,6 +135,29 @@ export const Hero = () => {
           ========================================= */}
       <div className="hidden lg:grid relative z-10 w-full max-w-[1920px] mx-auto h-screen px-8 lg:px-16 xl:px-24 grid-cols-12 grid-rows-6 pointer-events-none">
         
+        {/* Right Side Atmosphere (Mesh gradients & Particles) */}
+        <div className="col-start-9 col-end-13 row-start-1 row-end-7 pointer-events-none z-0 relative overflow-hidden">
+          <div className="absolute top-[20%] right-[-10%] w-[30vw] h-[30vw] bg-primary/10 rounded-full blur-[100px] animate-pulse mix-blend-multiply"></div>
+          <div className="absolute bottom-[20%] right-[10%] w-[20vw] h-[20vw] bg-black/5 rounded-full blur-[80px]"></div>
+          
+          {/* Floating Particles */}
+          <motion.div 
+            animate={{ y: [-20, 20], x: [-10, 10], rotate: 360 }}
+            transition={{ duration: 10, repeat: Infinity, repeatType: 'reverse', ease: 'linear' }}
+            className="absolute top-[30%] right-[15%] w-6 h-6 border border-primary/20 rotate-45"
+          ></motion.div>
+          <motion.div 
+            animate={{ y: [20, -20], x: [10, -10], rotate: -360 }}
+            transition={{ duration: 15, repeat: Infinity, repeatType: 'reverse', ease: 'linear' }}
+            className="absolute bottom-[40%] right-[25%] w-8 h-8 border rounded-full border-text-secondary/10"
+          ></motion.div>
+          <motion.div 
+            animate={{ y: [-15, 15], scale: [1, 1.2, 1] }}
+            transition={{ duration: 8, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
+            className="absolute top-[60%] right-[20%] w-3 h-3 bg-primary/30 rounded-full"
+          ></motion.div>
+        </div>
+
         {/* Top Left: Framing Elements */}
         <div className="col-span-4 row-start-2 z-20 pointer-events-auto">
           <div className="mb-4 text-sm font-bold tracking-[0.3em] text-text-secondary uppercase">
@@ -159,32 +182,33 @@ export const Hero = () => {
         </div>
 
         {/* Foreground: Overlapping Typography (Row 4 guarantees it strikes the chest) */}
-        <div className="col-start-1 col-end-12 xl:col-start-2 row-start-4 z-30 flex items-center justify-start mix-blend-difference text-white pointer-events-none">
+        {/* FIX: clamp sized down slightly and whitespace-nowrap applied with inline-blocks to ensure zero wrapping */}
+        <div className="col-start-1 col-end-13 xl:col-start-2 row-start-4 z-30 flex items-center justify-start mix-blend-difference text-white pointer-events-none">
           <h1 
             ref={textRefDesktop} 
-            className="text-[clamp(6rem,10vw,12rem)] leading-[0.85] font-sans font-black uppercase will-change-transform whitespace-nowrap"
+            className="text-[clamp(4.5rem,7vw,9.5rem)] leading-[0.85] font-sans font-black uppercase will-change-transform whitespace-nowrap"
             style={{ clipPath: 'polygon(0 0, 100% 0, 100% 120%, 0% 120%)' }}
           >
-            <span className="block">Athul</span>
-            <span className="block text-primary">Sivanand</span>
+            <span className="inline-block mr-[2vw]">Athul</span>
+            <span className="inline-block text-primary">Sivanand</span>
           </h1>
         </div>
 
         {/* Bottom Left: Interactive Elements */}
         <div className="col-span-6 row-start-6 z-40 flex flex-col gap-8 self-end pb-12 pointer-events-auto">
           <div className="flex flex-wrap gap-4 text-xs font-bold tracking-[0.2em] uppercase text-text-secondary">
-            <span className="px-4 py-2 bg-black/5 rounded-full border border-black/10">Microservices</span>
-            <span className="px-4 py-2 bg-black/5 rounded-full border border-black/10">Django</span>
-            <span className="px-4 py-2 bg-black/5 rounded-full border border-black/10">React</span>
+            <span className="px-4 py-2 bg-black/5 rounded-full border border-black/10 hover:bg-black/10 transition-colors cursor-none" data-cursor-text="TECH">Microservices</span>
+            <span className="px-4 py-2 bg-black/5 rounded-full border border-black/10 hover:bg-black/10 transition-colors cursor-none" data-cursor-text="TECH">Django</span>
+            <span className="px-4 py-2 bg-black/5 rounded-full border border-black/10 hover:bg-black/10 transition-colors cursor-none" data-cursor-text="TECH">React</span>
           </div>
           <div className="flex gap-4">
             <MagneticButton>
-              <a href="#projects" className="group flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-primary text-white hover:bg-text-dark transition-colors font-bold text-xs tracking-widest uppercase cursor-none shadow-[0_0_20px_rgba(198,128,69,0.3)]">
+              <a href="#projects" className="group flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-primary text-white hover:bg-text-dark transition-colors font-bold text-xs tracking-widest uppercase cursor-none shadow-[0_0_20px_rgba(198,128,69,0.3)]" data-cursor-text="VIEW">
                 View Projects <FiArrowRight className="text-lg transform group-hover:translate-x-1 transition-transform" />
               </a>
             </MagneticButton>
             <MagneticButton>
-              <a href="/resume.pdf" target="_blank" className="flex items-center justify-center gap-3 px-8 py-4 rounded-full border border-primary/30 text-text-dark hover:bg-primary/5 transition-colors font-bold text-xs tracking-widest uppercase cursor-none">
+              <a href="/resume.pdf" target="_blank" className="flex items-center justify-center gap-3 px-8 py-4 rounded-full border border-primary/30 text-text-dark hover:bg-primary/5 transition-colors font-bold text-xs tracking-widest uppercase cursor-none" data-cursor-text="PDF">
                 Resume <FiDownload className="text-lg" />
               </a>
             </MagneticButton>
@@ -207,10 +231,13 @@ export const Hero = () => {
           MOBILE LAYOUT (< 1024px)
           Flex Stack (Zero overlap for absolute safety)
           ========================================= */}
-      <div className="lg:hidden relative z-10 w-full min-h-screen px-4 sm:px-8 flex flex-col items-center pt-32 pb-24 text-center">
+      <div className="lg:hidden relative z-10 w-full min-h-screen px-4 sm:px-8 flex flex-col items-center pt-32 pb-24 text-center overflow-hidden">
         
+        {/* Mobile Atmosphere */}
+        <div className="absolute top-[10%] right-[-20%] w-[60vw] h-[60vw] bg-primary/10 rounded-full blur-[80px] pointer-events-none"></div>
+
         {/* Mobile Framing Top */}
-        <div className="mb-12">
+        <div className="mb-12 relative z-20">
           <h2 className="text-[clamp(2.5rem,8vw,4rem)] leading-none font-serif italic text-text-secondary/70">
             Hello.
           </h2>
@@ -219,7 +246,7 @@ export const Hero = () => {
         {/* Mobile Image */}
         <motion.div 
           style={{ y: parallaxY }}
-          className="w-[85%] sm:w-[70%] max-w-[400px] aspect-[4/5] z-10 mb-12"
+          className="w-[85%] sm:w-[70%] max-w-[400px] aspect-[4/5] z-10 mb-12 relative"
         >
           <div ref={imageContainerRefMobile} className="w-full h-full will-change-transform overflow-hidden rounded-2xl shadow-2xl">
             <img 
@@ -233,24 +260,24 @@ export const Hero = () => {
         {/* Mobile Name */}
         <h1 
           ref={textRefMobile} 
-          className="text-[clamp(4rem,12vw,6rem)] leading-[0.9] font-sans font-black uppercase text-text-dark will-change-transform mb-8"
+          className="text-[clamp(3.5rem,10vw,6rem)] leading-[0.9] font-sans font-black uppercase text-text-dark will-change-transform mb-8 whitespace-nowrap"
         >
           <span className="block">Athul</span>
           <span className="block text-primary">Sivanand</span>
         </h1>
 
         {/* Mobile Tags */}
-        <div className="flex flex-wrap justify-center gap-3 mb-10 text-[10px] font-bold tracking-[0.2em] uppercase text-text-secondary">
+        <div className="flex flex-wrap justify-center gap-3 mb-10 text-[10px] font-bold tracking-[0.2em] uppercase text-text-secondary relative z-20">
           <span className="px-4 py-2 bg-black/5 rounded-full border border-black/10">Microservices</span>
           <span className="px-4 py-2 bg-black/5 rounded-full border border-black/10">Django</span>
         </div>
 
         {/* Mobile Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-          <a href="#projects" className="group flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-primary text-white font-bold text-xs tracking-widest uppercase w-full">
-            View Projects <FiArrowRight className="text-lg" />
+        <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto relative z-20">
+          <a href="#projects" className="group flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-primary text-white font-bold text-xs tracking-widest uppercase w-full cursor-none" data-cursor-text="VIEW">
+            View Projects <FiArrowRight className="text-lg transform group-hover:translate-x-1 transition-transform" />
           </a>
-          <a href="/resume.pdf" target="_blank" className="flex items-center justify-center gap-3 px-8 py-4 rounded-full border border-primary/30 text-text-dark font-bold text-xs tracking-widest uppercase w-full">
+          <a href="/resume.pdf" target="_blank" className="flex items-center justify-center gap-3 px-8 py-4 rounded-full border border-primary/30 text-text-dark font-bold text-xs tracking-widest uppercase w-full cursor-none" data-cursor-text="PDF">
             Resume <FiDownload className="text-lg" />
           </a>
         </div>
