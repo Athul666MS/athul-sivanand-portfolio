@@ -14,7 +14,6 @@ export const Hero = () => {
   const imageContainerRefMobile = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // We conditionally split text based on what's rendered, but GSAP can handle arrays of targets
     const desktopTargets = textRefDesktop.current ? [textRefDesktop.current] : [];
     const mobileTargets = textRefMobile.current ? [textRefMobile.current] : [];
     const imageTargets = [];
@@ -44,7 +43,7 @@ export const Hero = () => {
       tl.set(splitBgText.chars, { y: 150, opacity: 0, scale: 0.8 });
       tl.to(splitBgText.chars, {
         y: 0,
-        opacity: 0.05,
+        opacity: 0.03, // Updated to 0.03 per master prompt
         scale: 1,
         duration: 1.5,
         stagger: 0.05,
@@ -120,7 +119,7 @@ export const Hero = () => {
       className="relative min-h-screen w-full overflow-hidden bg-background"
       onMouseMove={handleMouseMove}
     >
-      {/* Giant Atmospheric Background Text */}
+      {/* Giant Atmospheric Background Text - Fully Independent */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden z-0">
         <h1 
           ref={bgTextRef}
@@ -132,12 +131,12 @@ export const Hero = () => {
 
       {/* =========================================
           DESKTOP LAYOUT (>= 1024px)
-          Explicit Absolute Positioning for Exact Overlaps
+          Bulletproof CSS Grid Overlaps
           ========================================= */}
-      <div className="hidden lg:block relative z-10 w-full max-w-[1920px] mx-auto h-screen">
+      <div className="hidden lg:grid relative z-10 w-full max-w-[1920px] mx-auto h-screen px-8 lg:px-16 xl:px-24 grid-cols-12 grid-rows-6 pointer-events-none">
         
-        {/* Top Left: Framing Elements (No overlap) */}
-        <div className="absolute top-[20%] left-[8%] xl:left-[10%] z-20 pointer-events-none">
+        {/* Top Left: Framing Elements */}
+        <div className="col-span-4 row-start-2 z-20 pointer-events-auto">
           <div className="mb-4 text-sm font-bold tracking-[0.3em] text-text-secondary uppercase">
             Thrissur, Kerala
           </div>
@@ -146,10 +145,9 @@ export const Hero = () => {
           </h2>
         </div>
 
-        {/* Center: Hero Focal Image (z-index 20) */}
-        {/* Positioned slightly above absolute center to make room for overlapping text on the chest */}
-        <div className="absolute top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-[450px] xl:w-[500px] aspect-[3/4]">
-          <motion.div style={{ y: parallaxY }} className="w-full h-full">
+        {/* Center: Hero Focal Image (Rows 2 to 5 ensures it's tall and centered) */}
+        <div className="col-start-5 col-end-9 row-start-2 row-end-6 z-20 flex justify-center items-center pointer-events-auto">
+          <motion.div style={{ y: parallaxY }} className="w-full max-w-[450px] xl:max-w-[500px] aspect-[3/4]">
             <div ref={imageContainerRefDesktop} className="w-full h-full will-change-transform overflow-hidden rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.4)]">
               <img 
                 src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1000" 
@@ -160,56 +158,21 @@ export const Hero = () => {
           </motion.div>
         </div>
 
-        {/* Foreground: Overlapping Typography (z-index 30) */}
-        {/* Placed vertically at 65% so it perfectly strikes the chest area, leaving the face untouched */}
-<div
- className="
- absolute
- left-1/2
- top-[56%]
- -translate-x-1/2
- -translate-y-1/2
- z-30
- pointer-events-none
- w-[85vw]
- max-w-[1400px]
- "
->         <h1
-className="
-font-black
-uppercase
-leading-[0.82]
-tracking-tight
-text-white
-"
-style={{
-fontSize:"clamp(7rem,9vw,11rem)"
-}}
->
-   <span
-className="
-block
-ml-[20%]
-"
->
-ATHUL
-</span>
-
-<span
-className="
-block
-ml-[35%]
-text-primary
-"
->
-SIVANAND
-</span>
+        {/* Foreground: Overlapping Typography (Row 4 guarantees it strikes the chest) */}
+        <div className="col-start-1 col-end-12 xl:col-start-2 row-start-4 z-30 flex items-center justify-start mix-blend-difference text-white pointer-events-none">
+          <h1 
+            ref={textRefDesktop} 
+            className="text-[clamp(6rem,10vw,12rem)] leading-[0.85] font-sans font-black uppercase will-change-transform whitespace-nowrap"
+            style={{ clipPath: 'polygon(0 0, 100% 0, 100% 120%, 0% 120%)' }}
+          >
+            <span className="block">Athul</span>
+            <span className="block text-primary">Sivanand</span>
           </h1>
         </div>
 
         {/* Bottom Left: Interactive Elements */}
-        <div className="absolute bottom-[10%] left-[8%] xl:left-[10%] z-40 flex flex-col gap-8 pointer-events-auto">
-          <div className="flex gap-4 text-xs font-bold tracking-[0.2em] uppercase text-text-secondary">
+        <div className="col-span-6 row-start-6 z-40 flex flex-col gap-8 self-end pb-12 pointer-events-auto">
+          <div className="flex flex-wrap gap-4 text-xs font-bold tracking-[0.2em] uppercase text-text-secondary">
             <span className="px-4 py-2 bg-black/5 rounded-full border border-black/10">Microservices</span>
             <span className="px-4 py-2 bg-black/5 rounded-full border border-black/10">Django</span>
             <span className="px-4 py-2 bg-black/5 rounded-full border border-black/10">React</span>
@@ -229,7 +192,7 @@ SIVANAND
         </div>
 
         {/* Right Edge: Vertical Typography */}
-        <div className="absolute top-1/2 right-[5%] -translate-y-1/2 z-20 pointer-events-none">
+        <div className="col-start-12 row-start-3 row-end-5 z-20 flex justify-end items-center pointer-events-auto">
           <div 
             className="text-primary font-bold text-xs xl:text-sm tracking-[0.5em] uppercase whitespace-nowrap"
             style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
@@ -242,7 +205,7 @@ SIVANAND
 
       {/* =========================================
           MOBILE LAYOUT (< 1024px)
-          Flex Stack (Zero overlap)
+          Flex Stack (Zero overlap for absolute safety)
           ========================================= */}
       <div className="lg:hidden relative z-10 w-full min-h-screen px-4 sm:px-8 flex flex-col items-center pt-32 pb-24 text-center">
         

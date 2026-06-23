@@ -83,14 +83,14 @@ const ProjectCard = ({ project, index }: { project: any, index: number }) => {
           </div>
         </div>
 
-        {/* Buttons */}
+        {/* Buttons (High Z-Index, explicit pointer-events to guarantee clickability) */}
         <div className="flex flex-col sm:flex-row gap-4 relative z-50 pointer-events-auto lg:translate-y-[40px] lg:opacity-0 lg:group-hover:translate-y-0 lg:group-hover:opacity-100 transition-all duration-700 delay-200 ease-[cubic-bezier(0.25,1,0.5,1)]">
           <MagneticButton>
             <a 
               href={project.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-3 px-6 py-4 rounded-full border border-primary text-primary hover:bg-primary/10 transition-colors backdrop-blur-md font-bold text-xs tracking-widest uppercase cursor-none w-full sm:w-auto"
+              className="flex items-center justify-center gap-3 px-6 py-4 rounded-full border border-primary text-primary hover:bg-primary/10 transition-colors backdrop-blur-md font-bold text-xs tracking-widest uppercase cursor-none w-full sm:w-auto relative z-50"
               data-cursor-text="GITHUB"
             >
               <FiGithub className="text-lg" />
@@ -103,7 +103,7 @@ const ProjectCard = ({ project, index }: { project: any, index: number }) => {
               href={project.live}
               target="_blank"
               rel="noopener noreferrer"
-              className="group/btn flex items-center justify-center gap-3 px-6 py-4 rounded-full bg-primary text-white hover:bg-white hover:text-[#111111] transition-colors font-bold text-xs tracking-widest uppercase cursor-none w-full sm:w-auto shadow-[0_0_20px_rgba(198,128,69,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.5)]"
+              className="group/btn flex items-center justify-center gap-3 px-6 py-4 rounded-full bg-primary text-white hover:bg-white hover:text-[#111111] transition-colors font-bold text-xs tracking-widest uppercase cursor-none w-full sm:w-auto shadow-[0_0_20px_rgba(198,128,69,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.5)] relative z-50"
               data-cursor-text="VISIT"
             >
               Live Demo
@@ -114,9 +114,10 @@ const ProjectCard = ({ project, index }: { project: any, index: number }) => {
       </div>
 
       {/* Right Column (60%) - Image Container */}
+      {/* BUG FIX: Removed pointer-events-none from image so mouse hover is accurately detected */}
       <div 
         ref={containerRef} 
-        className={`w-full lg:w-[60%] aspect-[4/3] lg:aspect-[16/10] overflow-hidden rounded-2xl shadow-2xl relative order-1 ${index % 2 === 0 ? 'lg:order-2' : 'lg:order-1'} z-10 pointer-events-none`}
+        className={`w-full lg:w-[60%] aspect-[4/3] lg:aspect-[16/10] overflow-hidden rounded-2xl shadow-2xl relative order-1 ${index % 2 === 0 ? 'lg:order-2' : 'lg:order-1'} z-10 pointer-events-auto`}
       >
         <motion.div 
           style={{ y: imgY }}
@@ -130,7 +131,7 @@ const ProjectCard = ({ project, index }: { project: any, index: number }) => {
           />
         </motion.div>
         {/* Cinematic dark overlay fading in on hover */}
-        <div className="absolute inset-0 bg-black/10 group-hover:bg-black/50 transition-colors duration-[1.5s] ease-[cubic-bezier(0.25,1,0.5,1)]"></div>
+        <div className="absolute inset-0 bg-black/10 group-hover:bg-black/50 transition-colors duration-[1.5s] ease-[cubic-bezier(0.25,1,0.5,1)] pointer-events-none"></div>
       </div>
 
     </motion.div>
