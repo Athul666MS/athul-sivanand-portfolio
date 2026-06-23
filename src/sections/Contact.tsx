@@ -11,19 +11,19 @@ export const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-20 md:py-32 lg:py-48 bg-white text-[#111111] relative z-20 pb-48 lg:pb-48">
+    <section id="contact" className="py-20 md:py-32 lg:py-48 bg-white text-[#111111] relative z-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 flex flex-col lg:flex-row gap-16 lg:gap-20">
         
         {/* Left Info */}
         <div className="flex-1 w-full">
-          <h2 className="text-[clamp(3.5rem,8vw,8rem)] font-serif uppercase tracking-tighter leading-[0.8] mb-8 md:mb-12" data-cursor-text="HELLO">
+          <h2 className="text-[clamp(3rem,7vw,6rem)] font-serif uppercase tracking-tighter leading-[0.8] mb-8 md:mb-12" data-cursor-text="HELLO">
             Let's Build <span className="text-primary italic normal-case block pr-4">Something Great</span>
           </h2>
           <p className="text-lg sm:text-xl md:text-3xl font-sans text-text-secondary max-w-md mb-12 md:mb-16 leading-tight">
             Looking for a backend specialist or a full-stack developer to bring your vision to life? Let's connect.
           </p>
 
-          <div className="flex flex-col gap-6 md:gap-8 text-base sm:text-lg md:text-2xl font-bold font-sans uppercase tracking-wider">
+          <div className="flex flex-col gap-6 md:gap-8 text-base sm:text-lg md:text-2xl font-bold font-sans lowercase tracking-wider">
             <a href="mailto:athulsivanand14@gmail.com" className="hover:text-primary transition-colors flex items-center gap-3 md:gap-4 group cursor-none w-max break-all" data-cursor-text="EMAIL">
               <span className="w-6 md:w-8 h-[2px] bg-black group-hover:bg-primary transition-colors shrink-0"></span>
               <span className="truncate">athulsivanand14@gmail.com</span>

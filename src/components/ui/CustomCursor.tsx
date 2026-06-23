@@ -1,96 +1,136 @@
-import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useState, useCallback } from 'react';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
+
+const SPRING_OUTER = { stiffness: 200, damping: 20, mass: 0.5 };
+const SPRING_DOT = { stiffness: 300, damping: 20, mass: 0.3 }; // faster / more responsive
+
+const RING_SIZE = 40;
+const DOT_SIZE = 8;
+const HOVER_SIZE = 90;
 
 export const CustomCursor = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isVisible, setIsVisible] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
   const [hoverText, setHoverText] = useState('');
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
+  // Raw mouse values
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  // Outer ring springs (standard)
+  const ringX = useSpring(mouseX, SPRING_OUTER);
+  const ringY = useSpring(mouseY, SPRING_OUTER);
+
+  // Inner dot springs (faster response)
+  const dotX = useSpring(mouseX, SPRING_DOT);
+  const dotY = useSpring(mouseY, SPRING_DOT);
+
+  // ── Touch / pointer detection ──────────────────────────────────
   useEffect(() => {
-    const handleResize = () => setWindowWidth(window.innerWidth);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    const mql = window.matchMedia('(pointer: fine) and (min-width: 768px)');
+
+    const update = () => setIsVisible(mql.matches);
+    update();
+
+    mql.addEventListener('change', update);
+    return () => mql.removeEventListener('change', update);
+  }, []);
+
+  // ── Mouse tracking & hover detection ───────────────────────────
+  const handleMouseMove = useCallback(
+    (e: MouseEvent) => {
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
+    },
+    [mouseX, mouseY],
+  );
+
+  const handleMouseOver = useCallback((e: MouseEvent) => {
+    const target = e.target as HTMLElement;
+    const cursorElement = target.closest('[data-cursor-text]');
+
+    if (cursorElement) {
+      setIsHovering(true);
+      setHoverText(cursorElement.getAttribute('data-cursor-text') || '');
+    } else {
+      setIsHovering(false);
+      setHoverText('');
+    }
   }, []);
 
   useEffect(() => {
-    const updateMousePosition = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
+    if (!isVisible) return;
 
-    const handleMouseOver = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      const cursorElement = target.closest('[data-cursor-text]');
-      
-      if (cursorElement || target.closest('a') || target.closest('button') || target.closest('[data-cursor="hover"]')) {
-        setIsHovering(true);
-        if (cursorElement) {
-          setHoverText(cursorElement.getAttribute('data-cursor-text') || '');
-        } else {
-          setHoverText('');
-        }
-      } else {
-        setIsHovering(false);
-        setHoverText('');
-      }
-    };
-
-    window.addEventListener('mousemove', updateMousePosition);
+    window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mouseover', handleMouseOver);
 
     return () => {
-      window.removeEventListener('mousemove', updateMousePosition);
+      window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseover', handleMouseOver);
     };
-  }, []);
+  }, [isVisible, handleMouseMove, handleMouseOver]);
 
-  // Responsive cursor sizes
-  let size = 80; // Desktop default
-  let hoverSize = 100; // Desktop hover
-  
-  if (windowWidth < 480) {
-    // Hide completely below 480px
-    return null;
-  } else if (windowWidth < 768) {
-    size = 24; // Mobile (480px - 768px)
-    hoverSize = 24;
-  } else if (windowWidth < 1024) {
-    size = 50; // Tablet (768px - 1024px)
-    hoverSize = 50;
-  }
+  // ── Hide on touch devices / small screens ──────────────────────
+  if (!isVisible) return null;
 
-  const currentSize = isHovering ? hoverSize : size;
-  const showText = windowWidth >= 1024 && hoverText; // Only show text on desktop
-
-  const variants = {
-    default: {
-      x: mousePosition.x - size / 2,
-      y: mousePosition.y - size / 2,
-      height: size,
-      width: size,
-      backgroundColor: 'transparent',
-      border: '1px solid rgba(198, 128, 69, 0.7)',
-      mixBlendMode: 'normal' as any,
-    },
-    hover: {
-      x: mousePosition.x - hoverSize / 2,
-      y: mousePosition.y - hoverSize / 2,
-      height: hoverSize,
-      width: hoverSize,
-      backgroundColor: 'var(--color-primary)',
-      border: 'none',
-      mixBlendMode: 'normal' as any,
-    },
-  };
+  // ── Derived values ─────────────────────────────────────────────
+  const showText = isHovering && hoverText;
+  const currentSize = showText ? HOVER_SIZE : RING_SIZE;
+  const halfSize = currentSize / 2;
 
   return (
-    <motion.div
-      className="fixed top-0 left-0 rounded-full pointer-events-none z-[9999] flex items-center justify-center text-white text-[10px] font-bold text-center tracking-widest shadow-lg will-change-transform"
-      variants={variants}
-      animate={isHovering && hoverText ? 'hover' : 'default'}
-      transition={{ type: 'spring', stiffness: 150, damping: 15, mass: 0.5 }}
-    >
-      {showText && <span className="uppercase">{hoverText}</span>}
-    </motion.div>
+    <>
+      {/* ── Outer ring ──────────────────────────────────────────── */}
+      <motion.div
+        className="fixed top-0 left-0 rounded-full pointer-events-none z-[9999] flex items-center justify-center will-change-transform"
+        style={{
+          x: ringX,
+          y: ringY,
+          translateX: '-50%',
+          translateY: '-50%',
+        }}
+        animate={{
+          width: currentSize,
+          height: currentSize,
+          backgroundColor: showText
+            ? 'var(--color-primary)'
+            : 'transparent',
+          border: showText
+            ? 'none'
+            : '1px solid rgba(198,128,69,0.5)',
+        }}
+        transition={{ type: 'spring', stiffness: 200, damping: 20, mass: 0.5 }}
+      >
+        {showText && (
+          <motion.span
+            className="uppercase font-bold text-[10px] tracking-widest text-white text-center leading-tight pointer-events-none select-none"
+            initial={{ opacity: 0, scale: 0.6 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.6 }}
+            transition={{ duration: 0.2 }}
+          >
+            {hoverText}
+          </motion.span>
+        )}
+      </motion.div>
+
+      {/* ── Inner dot ───────────────────────────────────────────── */}
+      <motion.div
+        className="fixed top-0 left-0 rounded-full pointer-events-none z-[9999] will-change-transform"
+        style={{
+          x: dotX,
+          y: dotY,
+          translateX: '-50%',
+          translateY: '-50%',
+          width: DOT_SIZE,
+          height: DOT_SIZE,
+          backgroundColor: 'var(--color-primary)',
+        }}
+        animate={{
+          scale: showText ? 0 : 1,
+        }}
+        transition={{ type: 'spring', stiffness: 300, damping: 20, mass: 0.3 }}
+      />
+    </>
   );
 };
