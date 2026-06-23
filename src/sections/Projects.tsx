@@ -10,7 +10,7 @@ const projects = [
     description: "Freelancing Platform (Microservices Architecture). Distributed system with independently managed services for authentication, jobs, messaging, and payments.",
     tech: ["Django REST", "Docker", "WebSocket", "Nginx", "JWT", "MySQL"],
     image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070",
-    github: "#",
+    github: "https://github.com/Labora-Backend",
     live: "#"
   },
   {
@@ -19,7 +19,7 @@ const projects = [
     description: "Scalable multi-vendor marketplace with role-based dashboards, real-time order notifications, and secure payment integration.",
     tech: ["Django", "React", "AWS", "Razorpay", "OAuth"],
     image: "https://images.unsplash.com/photo-1557821552-17105176677c?q=80&w=2069",
-    github: "#",
+    github: "https://github.com/smec-community-dev/multimart-athul-azeem",
     live: "https://multimart.duckdns.org/login/"
   },
   {

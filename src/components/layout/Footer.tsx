@@ -12,7 +12,7 @@ export const Footer = () => {
         <div className="flex flex-col sm:flex-row gap-6 md:gap-8 mb-8 md:mb-12">
           <MagneticButton>
             <a 
-              href="https://github.com" 
+              href="https://github.com/Athul666MS" 
               target="_blank" 
               rel="noreferrer"
               className="px-6 md:px-8 py-3 md:py-4 rounded-full border border-white/20 text-xs md:text-sm font-bold uppercase tracking-widest hover:bg-white hover:text-[#111111] transition-colors cursor-none block w-full sm:w-auto"
@@ -23,7 +23,7 @@ export const Footer = () => {
           </MagneticButton>
           <MagneticButton>
             <a 
-              href="https://linkedin.com" 
+              href="https://www.linkedin.com/in/athul-sivanand-73875635a" 
               target="_blank" 
               rel="noreferrer"
               className="px-6 md:px-8 py-3 md:py-4 rounded-full bg-primary text-white text-xs md:text-sm font-bold uppercase tracking-widest hover:bg-white hover:text-[#111111] transition-colors cursor-none block w-full sm:w-auto"

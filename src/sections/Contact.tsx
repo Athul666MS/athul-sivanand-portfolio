@@ -16,8 +16,8 @@ export const Contact = () => {
         
         {/* Left Info */}
         <div className="flex-1 w-full">
-          <h2 className="text-[clamp(4rem,12vw,10rem)] font-serif uppercase tracking-tighter leading-[0.8] mb-8 md:mb-12" data-cursor-text="HELLO">
-            Let's <span className="text-primary italic normal-case block pr-4">Talk</span>
+          <h2 className="text-[clamp(3.5rem,8vw,8rem)] font-serif uppercase tracking-tighter leading-[0.8] mb-8 md:mb-12" data-cursor-text="HELLO">
+            Let's Build <span className="text-primary italic normal-case block pr-4">Something Great</span>
           </h2>
           <p className="text-lg sm:text-xl md:text-3xl font-sans text-text-secondary max-w-md mb-12 md:mb-16 leading-tight">
             Looking for a backend specialist or a full-stack developer to bring your vision to life? Let's connect.
@@ -36,6 +36,14 @@ export const Contact = () => {
               <span className="w-6 md:w-8 h-[2px] bg-text-secondary shrink-0"></span>
               Thrissur, Kerala
             </div>
+            <a href="https://github.com/Athul666MS" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors flex items-center gap-3 md:gap-4 group cursor-none w-max" data-cursor-text="GITHUB">
+              <span className="w-6 md:w-8 h-[2px] bg-black group-hover:bg-primary transition-colors shrink-0"></span>
+              GitHub
+            </a>
+            <a href="https://www.linkedin.com/in/athul-sivanand-73875635a" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors flex items-center gap-3 md:gap-4 group cursor-none w-max" data-cursor-text="LINKEDIN">
+              <span className="w-6 md:w-8 h-[2px] bg-black group-hover:bg-primary transition-colors shrink-0"></span>
+              LinkedIn
+            </a>
           </div>
         </div>
 
