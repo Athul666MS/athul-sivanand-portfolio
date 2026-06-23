@@ -56,7 +56,7 @@ export const About = () => {
         
         {/* LEFT COLUMN: Title + Description */}
         <div className="w-full">
-          <h2 ref={titleRef} className="text-[clamp(3rem,6.5vw,5.5rem)] font-serif uppercase tracking-tight leading-[0.9] mb-8 md:mb-10 will-change-transform break-words" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 120%, 0% 120%)' }}>
+          <h2 ref={titleRef} className="text-[clamp(2.5rem,5vw,4rem)] font-serif uppercase tracking-tight leading-[0.9] mb-8 md:mb-10 will-change-transform break-words" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 120%, 0% 120%)' }}>
             <span className="text-primary italic normal-case block font-medium mb-2">The</span>
             <span className="block">SUMMARY</span>
           </h2>

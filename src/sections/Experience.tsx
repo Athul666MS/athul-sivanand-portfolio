@@ -99,7 +99,7 @@ export const Experience = () => {
         
         {/* Section Title */}
         <div className="flex flex-col items-start mb-20 md:mb-32">
-          <h2 className="text-[clamp(3rem,8vw,6rem)] font-serif uppercase tracking-tighter leading-none" data-cursor-text="CAREER">
+          <h2 className="text-[clamp(2.5rem,5vw,4rem)] font-serif uppercase tracking-tighter leading-none" data-cursor-text="CAREER">
             Professional<br />
             <span className="text-primary italic normal-case">Experience</span>
           </h2>

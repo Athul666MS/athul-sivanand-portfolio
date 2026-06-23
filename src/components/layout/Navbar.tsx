@@ -5,13 +5,13 @@ import { Link } from 'react-router-dom';
 import { FiX } from 'react-icons/fi';
 
 const navLinks = [
-  { name: 'Home', href: '/' },
-  { name: 'About', href: '#about' },
-  { name: 'Skills', href: '#skills' },
-  { name: 'Experience', href: '#experience' },
-  { name: 'Projects', href: '#projects' },
-  { name: 'Certifications', href: '#certifications' },
-  { name: 'Contact', href: '#contact' },
+  { name: 'Home', href: '/', num: '01' },
+  { name: 'About', href: '#about', num: '02' },
+  { name: 'Skills', href: '#skills', num: '03' },
+  { name: 'Experience', href: '#experience', num: '04' },
+  { name: 'Projects', href: '#projects', num: '05' },
+  { name: 'Certifications', href: '#certifications', num: '06' },
+  { name: 'Contact', href: '#contact', num: '07' },
 ];
 
 export const Navbar = () => {
@@ -40,9 +40,9 @@ export const Navbar = () => {
   };
 
   const mobileLinkVars = {
-    initial: { y: "30vh", transition: { duration: 0.5, ease: [0.37, 0, 0.63, 1] as any } },
-    open: { y: 0, transition: { ease: [0, 0.55, 0.45, 1] as any, duration: 0.7 } },
-    exit: { y: "30vh", transition: { duration: 0.4, ease: [0.37, 0, 0.63, 1] as any } }
+    initial: { y: "30vh", opacity: 0, transition: { duration: 0.5, ease: [0.37, 0, 0.63, 1] as any } },
+    open: { y: 0, opacity: 1, transition: { ease: [0, 0.55, 0.45, 1] as any, duration: 0.7 } },
+    exit: { y: "30vh", opacity: 0, transition: { duration: 0.4, ease: [0.37, 0, 0.63, 1] as any } }
   };
 
   return (
@@ -100,66 +100,66 @@ export const Navbar = () => {
             initial="initial"
             animate="animate"
             exit="exit"
-            className="fixed inset-0 bg-[#111111] z-[100] origin-top flex flex-col justify-center items-center overflow-hidden px-4 py-24 md:py-28"
+            className="fixed inset-0 bg-[#111111] z-[100] origin-top flex flex-col justify-center items-center overflow-hidden px-4 sm:px-8 md:px-16 lg:px-24 py-24 md:py-28"
           >
+            {/* Huge Background Text */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden">
+              <span className="text-[clamp(10rem,25vw,35rem)] font-black uppercase text-white/5 whitespace-nowrap select-none">
+                ATHUL
+              </span>
+            </div>
+
+            {/* Top Left Navigation Label */}
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0, transition: { delay: 0.6, duration: 0.6 } }}
+              exit={{ opacity: 0, transition: { duration: 0.3 } }}
+              className="absolute top-8 left-4 sm:top-12 sm:left-8 md:top-16 md:left-16 lg:left-24 text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase text-white/40 pointer-events-none z-10"
+            >
+              
+            </motion.div>
+
             {/* Center Menu Items */}
-            <motion.div variants={containerVars} initial="initial" animate="open" exit="exit" className="flex max-h-[68vh] w-full flex-col items-center justify-center text-center">
+            <motion.div 
+              variants={containerVars} 
+              initial="initial" 
+              animate="open" 
+              exit="exit" 
+              className="relative z-10 flex flex-col items-center justify-center text-center w-full group/nav"
+            >
               {navLinks.map((link, idx) => (
-                <div key={idx} className="overflow-hidden flex justify-center py-1 md:py-1.5">
+                <div key={idx} className="overflow-hidden flex justify-center py-2 md:py-3 w-full">
                   <motion.div variants={mobileLinkVars}>
-                    {link.href.startsWith('#') ? (
-                      <a 
-                        href={link.href} 
-                        onClick={toggleMenu}
-className="
-text-[clamp(2rem,3.8vw,3.5rem)]
-font-sans
-uppercase
-font-black
-tracking-normal
-leading-[0.9]
-text-white
-hover:text-primary
-transition-all
-duration-300
-md:hover:scale-[1.025]
-inline-block
-relative
-group
-w-max
-max-w-[94vw]
-cursor-none
-"                        data-cursor-text={link.name.toUpperCase()}
-                      >
-                        <span className="relative z-10 block">{link.name}</span>
-                      </a>
-                    ) : (
-                      <Link 
-                        to={link.href} 
-                        onClick={toggleMenu}
-                        className="text-[clamp(2.15rem,5.4vw,4.6rem)] font-sans uppercase font-black tracking-normal leading-[0.9] text-white hover:text-primary transition-all duration-300 md:hover:scale-[1.025] inline-block relative group w-max max-w-[94vw] cursor-none"
-                        data-cursor-text={link.name.toUpperCase()}
-                      >
-                        <span className="relative z-10 block">{link.name}</span>
-                      </Link>
-                    )}
+                    <Link
+                      to={link.href}
+                      onClick={toggleMenu}
+                      className="group flex items-center gap-4 md:gap-8 text-[clamp(1.75rem,3.5vw,3rem)] font-sans uppercase font-black tracking-normal leading-[1] text-white transition-all duration-500 cursor-none w-max mx-auto md:hover:scale-105 group-hover/nav:text-white/20 hover:!text-primary"
+                      data-cursor-text={link.name.toUpperCase()}
+                    >
+                      <span className="text-xs md:text-sm font-mono tracking-widest text-white/40 group-hover:text-primary/60 transition-colors duration-500 mt-1 md:mt-2 block">
+                        {link.num}
+                      </span>
+                      <span className="relative z-10 block">
+                        {link.name}
+                      </span>
+                    </Link>
                   </motion.div>
                 </div>
               ))}
             </motion.div>
 
-            {/* Bottom Social Links Area */}
+            {/* Bottom Left Social Links */}
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0, transition: { delay: 0.8, duration: 0.6 } }}
               exit={{ opacity: 0, transition: { duration: 0.3 } }}
-              className="absolute bottom-10 md:bottom-16 left-1/2 -translate-x-1/2 flex gap-8 md:gap-14 text-[10px] md:text-xs font-bold tracking-[0.25em] uppercase text-text-secondary"
+              className="absolute bottom-8 left-4 sm:bottom-12 sm:left-8 md:bottom-16 md:left-16 lg:left-24 flex flex-col gap-3 md:gap-4 text-[10px] md:text-xs font-bold tracking-[0.25em] uppercase text-white/60 z-10"
             >
               <a 
                 href="https://github.com/Athul666MS" 
                 target="_blank" 
                 rel="noreferrer" 
-                className="hover:text-primary transition-colors cursor-none" 
+                className="hover:text-primary transition-colors cursor-none w-max" 
                 data-cursor-text="GITHUB"
               >
                 GitHub
@@ -168,17 +168,26 @@ cursor-none
                 href="https://www.linkedin.com/in/athul-sivanand-73875635a" 
                 target="_blank" 
                 rel="noreferrer" 
-                className="hover:text-primary transition-colors cursor-none" 
+                className="hover:text-primary transition-colors cursor-none w-max" 
                 data-cursor-text="LINKEDIN"
               >
                 LinkedIn
               </a>
+            </motion.div>
+
+            {/* Bottom Right Email */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0, transition: { delay: 0.8, duration: 0.6 } }}
+              exit={{ opacity: 0, transition: { duration: 0.3 } }}
+              className="absolute bottom-8 right-4 sm:bottom-12 sm:right-8 md:bottom-16 md:right-16 lg:right-24 text-[10px] md:text-xs font-bold tracking-[0.1em] text-white/30 hover:text-white/80 transition-colors z-10 hidden sm:block"
+            >
               <a 
                 href="mailto:athulsivanand14@gmail.com" 
-                className="hover:text-primary transition-colors cursor-none" 
+                className="cursor-none lowercase" 
                 data-cursor-text="EMAIL"
               >
-                Email
+                athulsivanand14@gmail.com
               </a>
             </motion.div>
 

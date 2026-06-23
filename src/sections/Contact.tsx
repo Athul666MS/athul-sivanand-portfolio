@@ -16,7 +16,7 @@ export const Contact = () => {
         
         {/* Left Info */}
         <div className="flex-1 w-full">
-          <h2 className="text-[clamp(3rem,7vw,6rem)] font-serif uppercase tracking-tighter leading-[0.8] mb-8 md:mb-12" data-cursor-text="HELLO">
+          <h2 className="text-[clamp(2.5rem,5vw,4rem)] font-serif uppercase tracking-tighter leading-[0.8] mb-8 md:mb-12" data-cursor-text="HELLO">
             Let's Build <span className="text-primary italic normal-case block pr-4">Something Great</span>
           </h2>
           <p className="text-lg sm:text-xl md:text-3xl font-sans text-text-secondary max-w-md mb-12 md:mb-16 leading-tight">

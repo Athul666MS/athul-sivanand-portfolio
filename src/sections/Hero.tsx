@@ -168,7 +168,7 @@ export const Hero = () => {
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden z-0">
         <h1 
           ref={bgTextRef}
-          className="text-[clamp(6rem,15vw,20rem)] font-black text-primary uppercase whitespace-nowrap tracking-tighter will-change-transform opacity-[0.03] leading-none"
+          className="text-[clamp(4rem,10vw,12rem)] font-black text-primary uppercase whitespace-nowrap tracking-tighter will-change-transform opacity-[0.03] leading-none"
         >
           DEVELOPER
         </h1>
@@ -234,7 +234,7 @@ export const Hero = () => {
             <div className="hero-left-item text-[11px] font-bold tracking-[0.35em] text-text-secondary uppercase">
               Thrissur, Kerala
             </div>
-            <h2 className="hero-left-item text-[clamp(2.8rem,3.5vw,4rem)] leading-none font-serif italic text-text-secondary/60">
+            <h2 className="hero-left-item text-[clamp(2rem,3vw,3rem)] leading-none font-serif italic text-text-secondary/60">
               HELLO. 
             </h2>
             <p className="hero-left-item text-sm xl:text-base leading-relaxed text-text-secondary/80 max-w-[260px] font-sans">
@@ -286,7 +286,7 @@ export const Hero = () => {
           <motion.div style={{ y: parallaxY }} className="relative w-full max-w-[520px] xl:max-w-[560px]">
             <div ref={imageContainerRefDesktop} className="w-full aspect-[3/4] will-change-transform overflow-hidden rounded-2xl shadow-[0_40px_80px_rgba(0,0,0,0.35)]">
               <img 
-                src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1200" 
+                src="src\assets\image.png" 
                 alt="Athul Sivanand" 
                 className="w-full h-full object-cover object-top"
               />
@@ -299,7 +299,7 @@ export const Hero = () => {
           <h1 
             ref={textRefDesktop} 
             className="flex w-[min(92vw,1180px)] items-center justify-center whitespace-nowrap text-center font-sans font-black uppercase tracking-[-0.03em] leading-[0.82] will-change-transform"
-            style={{ fontSize: 'clamp(3.75rem, 5.35vw, 7rem)' }}
+            style={{ fontSize: 'clamp(2.5rem, 4vw, 4.5rem)' }}
           >
             Athul <span className="ml-[0.16em] text-primary">Sivanand</span>
           </h1>
@@ -343,7 +343,7 @@ export const Hero = () => {
 
         {/* Mobile Framing Top */}
         <div className="mb-8 relative z-20">
-          <h2 className="text-[clamp(2.5rem,8vw,3.5rem)] leading-none font-serif italic text-text-secondary/60">
+          <h2 className="text-[clamp(1.8rem,5vw,2.5rem)] leading-none font-serif italic text-text-secondary/60">
             Hello.
           </h2>
         </div>
@@ -355,7 +355,7 @@ export const Hero = () => {
         >
           <div ref={imageContainerRefMobile} className="w-full h-full will-change-transform overflow-hidden rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.3)]">
             <img 
-              src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1000" 
+              src="src\assets\image.png" 
               alt="Athul Sivanand" 
               className="w-full h-full object-cover object-top"
             />
@@ -367,10 +367,10 @@ export const Hero = () => {
           ref={textRefMobile} 
           className="flex w-full max-w-[420px] flex-col items-center will-change-transform mb-8 -mt-24 relative z-20 mix-blend-difference text-white"
         >
-          <span className="origin-center scale-x-[0.9] font-sans font-black uppercase tracking-[-0.03em] leading-[0.82] text-[clamp(3.5rem,12vw,5.5rem)]">
+          <span className="origin-center scale-x-[0.9] font-sans font-black uppercase tracking-[-0.03em] leading-[0.82] text-[clamp(2.5rem,8vw,3.5rem)]">
             Athul
           </span>
-          <span className="origin-center scale-x-[0.9] font-sans font-black uppercase tracking-[-0.03em] leading-[0.82] text-primary text-[clamp(2.8rem,10vw,4.5rem)]">
+          <span className="origin-center scale-x-[0.9] font-sans font-black uppercase tracking-[-0.03em] leading-[0.82] text-primary text-[clamp(2rem,6vw,3rem)]">
             Sivanand
           </span>
         </h1>

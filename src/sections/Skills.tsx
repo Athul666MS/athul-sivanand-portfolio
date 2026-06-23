@@ -107,7 +107,7 @@ export const Skills = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 relative z-10">
 
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-16 lg:mb-24 gap-6 lg:gap-8">
-          <h2 className="text-[clamp(3rem,8vw,6rem)] font-serif uppercase tracking-tighter leading-[0.9]" data-cursor-text="TECH">
+          <h2 className="text-[clamp(2.5rem,5vw,4rem)] font-serif uppercase tracking-tighter leading-[0.9]" data-cursor-text="TECH">
             Technical<br/>
             <span className="text-primary italic normal-case">Arsenal</span>
           </h2>

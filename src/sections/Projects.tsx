@@ -144,7 +144,7 @@ export const Projects = () => {
         
         {/* Section Title */}
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-16 md:mb-32 gap-6">
-          <h2 className="text-[clamp(3rem,8vw,6rem)] font-serif uppercase tracking-tighter leading-none" data-cursor-text="WORK">
+          <h2 className="text-[clamp(2.5rem,5vw,4rem)] font-serif uppercase tracking-tighter leading-none" data-cursor-text="WORK">
             Selected <span className="text-primary italic normal-case">Works</span>
           </h2>
           <p className="text-white/40 max-w-sm text-base lg:text-lg font-medium">
