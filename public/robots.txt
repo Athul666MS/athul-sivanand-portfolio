@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://athulsivanand.com/sitemap.xml

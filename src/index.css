@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #ECECEC;
+  --color-primary: #C68045;
+  --color-text-dark: #111111;
+  --color-text-secondary: #4A4A4A;
+  --color-white: #FFFFFF;
+  --color-overlay: rgba(17, 17, 17, 0.5);
+
+  --font-sans: "Inter", "Outfit", sans-serif;
+  --font-serif: "Playfair Display", serif;
+}
+
+/* Custom styles for Shadcn UI / General setup */
+@layer base {
+  :root {
+    --background: 0 0% 92.5%; /* #ECECEC */
+    --foreground: 0 0% 6.7%; /* #111111 */
+    --card: 0 0% 100%; /* #FFFFFF */
+    --card-foreground: 0 0% 6.7%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 6.7%;
+    --primary: 27 54% 52%; /* #C68045 */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 29%; /* #4A4A4A */
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 90%;
+    --muted-foreground: 0 0% 29%;
+    --accent: 27 54% 52%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 85%;
+    --input: 0 0% 85%;
+    --ring: 27 54% 52%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    border-color: hsl(var(--border));
+  }
+  html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-text-dark);
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  a, button, .cursor-none {
+    cursor: none; /* Hide default cursor for interactables */
+  }
+
+  /* Media query to fallback cursor on touch devices */
+  @media (hover: none) and (pointer: coarse) {
+    body, a, button, .cursor-none {
+      cursor: auto !important;
+    }
+  }
+
+  ::selection {
+    @apply bg-primary text-white;
+  }
+}
+
+/* Lenis Smooth Scroll Recommended CSS */
+html.lenis, html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
