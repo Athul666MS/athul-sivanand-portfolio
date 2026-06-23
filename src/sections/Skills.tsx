@@ -6,22 +6,71 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const skills = [
+
   {
     category: "Backend",
-    items: ["Python", "Django", "DRF", "JWT", "WebSocket", "Microservices", "Redis"]
+    items: [
+      "Python",
+      "Django",
+      "Django REST Framework",
+      "FastAPI",
+      "JWT",
+      "REST APIs",
+      "WebSocket",
+      "Redis",
+      "Microservices",
+      "Celery",
+      "Razorpay",
+      "MySQL"
+    ]
   },
   {
     category: "Frontend",
-    items: ["React", "JavaScript", "HTML", "CSS", "Tailwind", "Bootstrap"]
+    items: [
+      "React",
+      "TypeScript",
+      "JavaScript",
+      "HTML5",
+      "CSS3",
+      "Tailwind CSS",
+      "Bootstrap",
+      "Responsive Design",
+      "Framer Motion",
+      "GSAP"
+    ]
   },
   {
-    category: "Cloud",
-    items: ["AWS EC2", "AWS S3", "AWS RDS", "MySQL", "Docker"]
+    category: "Cloud & Databases",
+    items: [
+      "AWS EC2",
+      "AWS S3",
+      "AWS RDS",
+      "MySQL",
+      "Redis",
+      "Docker",
+      "Cloudinary",
+      "Vercel",
+      "Netlify"
+    ]
   },
   {
-    category: "DevOps",
-    items: ["Git", "GitHub", "Nginx", "Gunicorn", "Postman"]
+    category: "DevOps & Tools",
+    items: [
+      "Git",
+      "GitHub",
+      "GitHub Actions",
+      "Linux",
+      "Docker",
+      "Docker Compose",
+      "Nginx",
+      "Gunicorn",
+      "Postman",
+      "SSH",
+      "CI/CD",
+      "SSL/TLS"
+    ]
   }
+
 ];
 
 export const Skills = () => {

@@ -23,7 +23,7 @@ const projects = [
     live: "https://multimart.duckdns.org/login/"
   },
   {
-    title: "HireMe",
+    title: "Hiremo",
     type: "Service Platform",
     description: "Skill exchange and work hiring platform featuring biometric verification using Haar Cascade and OpenCV.",
     tech: ["Django", "OpenCV", "MySQL", "Bootstrap"],
