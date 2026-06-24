@@ -54,12 +54,14 @@ export const Experience = () => {
         }
       );
 
-      // Timeline node pop
+      // Timeline node pop (inner element only — preserves outer translate centering)
       gsap.fromTo(q('.timeline-node'),
         { scale: 0 },
         {
-          scale: 1, duration: 0.5, ease: "back.out(1.7)",
-          clearProps: "all",
+          scale: 1,
+          duration: 0.5,
+          ease: "back.out(1.7)",
+          clearProps: "scale",
           scrollTrigger: { trigger: q('.exp-card'), start: "top 60%" }
         }
       );
@@ -112,16 +114,18 @@ export const Experience = () => {
             <div ref={lineRef} className="w-full bg-primary origin-top shadow-[0_0_10px_rgba(198,128,69,0.5)] rounded-full" />
           </div>
 
+          {/* Timeline node — anchored to the line (outer) + scale animation (inner) */}
+          <div
+            className="pointer-events-none absolute left-6 top-[5.5rem] z-20 w-6 h-6 -translate-x-1/2 md:left-1/2"
+            aria-hidden="true"
+          >
+            <div className="timeline-node h-full w-full rounded-full border-4 border-primary bg-background shadow-[0_0_15px_rgba(198,128,69,0.4)]" />
+          </div>
+
           <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-0 pt-10 pb-20 relative">
             
             {/* LEFT: Experience Card */}
             <div className="md:pr-12 lg:pr-20 relative pl-16 md:pl-0">
-              
-              {/* Timeline Node — mathematically centered on the line */}
-              <div className="timeline-node absolute top-12 w-6 h-6 rounded-full bg-background border-4 border-primary z-20
-                              left-6 -translate-x-1/2
-                              md:left-auto md:right-0 md:translate-x-1/2
-                              shadow-[0_0_15px_rgba(198,128,69,0.4)]" />
 
               {/* Glassmorphism Card */}
               <div 
@@ -130,7 +134,15 @@ export const Experience = () => {
               >
                 {/* Header */}
                 <div className="flex items-center gap-5 mb-8 border-b border-black/5 pb-8">
-                  <img src={exp.logo} alt={exp.company} className="w-14 h-14 rounded-2xl shadow-md group-hover:scale-105 transition-transform" />
+                  <img
+                    src={exp.logo}
+                    alt={`${exp.company} logo`}
+                    width={56}
+                    height={56}
+                    loading="lazy"
+                    decoding="async"
+                    className="w-14 h-14 rounded-2xl shadow-md group-hover:scale-105 transition-transform"
+                  />
                   <div>
                     <h3 className="text-xl sm:text-2xl md:text-3xl font-black font-sans mb-1 group-hover:text-primary transition-colors leading-tight">
                       {exp.role}
@@ -169,8 +181,12 @@ export const Experience = () => {
             <div className="md:pl-12 lg:pl-20 relative pl-16 md:pl-12 flex items-start md:pt-16">
               <div className="exp-image w-full aspect-square md:aspect-[4/5] rounded-[2rem] overflow-hidden relative shadow-[0_30px_60px_rgba(0,0,0,0.15)] group cursor-none will-change-transform" data-cursor-text="WORKSPACE">
                 <img 
-                  src="https://images.unsplash.com/photo-1555099962-4199c345e5dd?q=80&w=2070" 
-                  alt="Developer workspace" 
+                  src="https://images.unsplash.com/photo-1555099962-4199c345e5dd?w=800&q=75&fm=webp"
+                  alt="Developer workspace at SMEC Technologies"
+                  width={800}
+                  height={1000}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-[1.5s] ease-[cubic-bezier(0.25,1,0.5,1)] filter grayscale group-hover:grayscale-0"
                 />
                 {/* Cinematic overlays */}

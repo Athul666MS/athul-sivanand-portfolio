@@ -75,7 +75,6 @@ const skills = [
 
 export const Skills = () => {
   const sectionRef = useRef<HTMLElement>(null);
-  const containerRef = useRef<HTMLElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   const { scrollYProgress } = useScroll({

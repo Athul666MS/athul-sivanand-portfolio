@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { FiGithub, FiArrowRight, FiExternalLink } from 'react-icons/fi';
+import { FiGithub, FiArrowRight } from 'react-icons/fi';
 import { MagneticButton } from '../components/ui/MagneticButton';
 
 const projects = [
@@ -9,7 +9,7 @@ const projects = [
     type: "Featured Project",
     description: "Freelancing Platform (Microservices Architecture). Distributed system with independently managed services for authentication, jobs, messaging, and payments.",
     tech: ["Django REST", "Docker", "WebSocket", "Nginx", "JWT", "MySQL"],
-    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070",
+    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=75&fm=webp",
     github: "https://github.com/Labora-Backend",
     live: "#"
   },
@@ -18,7 +18,7 @@ const projects = [
     type: "E-Commerce Platform",
     description: "Scalable multi-vendor marketplace with role-based dashboards, real-time order notifications, and secure payment integration.",
     tech: ["Django", "React", "AWS", "Razorpay", "OAuth"],
-    image: "https://images.unsplash.com/photo-1557821552-17105176677c?q=80&w=2069",
+    image: "https://images.unsplash.com/photo-1557821552-17105176677c?w=800&q=75&fm=webp",
     github: "https://github.com/smec-community-dev/multimart-athul-azeem",
     live: "https://multimart.duckdns.org/login/"
   },
@@ -27,7 +27,7 @@ const projects = [
     type: "Service Platform",
     description: "Skill exchange and work hiring platform featuring biometric verification using Haar Cascade and OpenCV.",
     tech: ["Django", "OpenCV", "MySQL", "Bootstrap"],
-    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070",
+    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=75&fm=webp",
     github: "#",
     live: "#"
   }
@@ -63,7 +63,11 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0], index: n
           >
             <img 
               src={project.image} 
-              alt={project.title} 
+              alt={`${project.title} project preview`}
+              width={800}
+              height={500}
+              loading="lazy"
+              decoding="async"
               className="w-full h-full object-cover origin-center scale-110 group-hover:scale-100" 
               style={{ transition: 'transform 1.5s cubic-bezier(0.25, 1, 0.5, 1)' }}
             />

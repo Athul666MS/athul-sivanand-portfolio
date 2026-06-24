@@ -76,7 +76,6 @@ export const CustomCursor = () => {
   // ── Derived values ─────────────────────────────────────────────
   const showText = isHovering && hoverText;
   const currentSize = showText ? HOVER_SIZE : RING_SIZE;
-  const halfSize = currentSize / 2;
 
   return (
     <>

@@ -1,22 +1,39 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { Hero } from '../sections/Hero';
-import { About } from '../sections/About';
-import { Skills } from '../sections/Skills';
 import { Experience } from '../sections/Experience';
-import { Projects } from '../sections/Projects';
 import { Certifications } from '../sections/Certifications';
-import { Contact } from '../sections/Contact';
+
+const About = lazy(() =>
+  import('../sections/About').then((module) => ({ default: module.About }))
+);
+const Skills = lazy(() =>
+  import('../sections/Skills').then((module) => ({ default: module.Skills }))
+);
+const Projects = lazy(() =>
+  import('../sections/Projects').then((module) => ({ default: module.Projects }))
+);
+const Contact = lazy(() =>
+  import('../sections/Contact').then((module) => ({ default: module.Contact }))
+);
 
 const Home = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Hero />
-      <About />
-      <Skills />
+      <Suspense fallback={null}>
+        <About />
+      </Suspense>
+      <Suspense fallback={null}>
+        <Skills />
+      </Suspense>
       <Experience />
-      <Projects />
+      <Suspense fallback={null}>
+        <Projects />
+      </Suspense>
       <Certifications />
-      <Contact />
+      <Suspense fallback={null}>
+        <Contact />
+      </Suspense>
     </div>
   );
 };

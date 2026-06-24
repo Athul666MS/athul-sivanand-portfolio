@@ -3,9 +3,12 @@ import gsap from 'gsap';
 import SplitType from 'split-type';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { MagneticButton } from '../components/ui/MagneticButton';
-import heroImage from '../assets/image.png';
 import { FiArrowRight, FiDownload } from 'react-icons/fi';
 import resumePdf from '../docs/resume.pdf';
+
+const HERO_IMAGE = '/hero.webp';
+const HERO_WIDTH = 1120;
+const HERO_HEIGHT = 1400;
 
 export const Hero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -287,8 +290,13 @@ export const Hero = () => {
           <motion.div style={{ y: parallaxY }} className="relative w-full max-w-[520px] xl:max-w-[560px]">
             <div ref={imageContainerRefDesktop} className="w-full aspect-[3/4] will-change-transform overflow-hidden rounded-2xl shadow-[0_40px_80px_rgba(0,0,0,0.35)]">
               <img 
-                src={heroImage} 
-                alt="Athul Sivanand" 
+                src={HERO_IMAGE}
+                alt="Athul Sivanand"
+                width={HERO_WIDTH}
+                height={HERO_HEIGHT}
+                loading="eager"
+                decoding="async"
+                fetchPriority="high"
                 className="w-full h-full object-cover object-top"
               />
             </div>
@@ -356,8 +364,13 @@ export const Hero = () => {
         >
           <div ref={imageContainerRefMobile} className="w-full h-full will-change-transform overflow-hidden rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.3)]">
             <img 
-              src={heroImage} 
-              alt="Athul Sivanand" 
+              src={HERO_IMAGE}
+              alt="Athul Sivanand"
+              width={HERO_WIDTH}
+              height={HERO_HEIGHT}
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
               className="w-full h-full object-cover object-top"
             />
           </div>

@@ -118,8 +118,12 @@ export const Certifications = () => {
                 <div className="flex items-center gap-4">
                   <img
                     src={cert.logo}
-                    alt={cert.issuer}
-  className={`${cert.logoClass} object-contain shrink-0 rounded-xl md:group-hover:scale-105 transition-transform duration-300`}
+                    alt={`${cert.issuer} logo`}
+                    width={56}
+                    height={56}
+                    loading="lazy"
+                    decoding="async"
+                    className={`${cert.logoClass} object-contain shrink-0 rounded-xl md:group-hover:scale-105 transition-transform duration-300`}
                   />
                   <div>
                     <h4 className="text-lg sm:text-xl md:text-2xl font-black font-sans leading-tight md:group-hover:text-primary transition-colors duration-300">
