@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { m, useMotionValue, useSpring } from 'framer-motion';
 
 const SPRING_OUTER = { stiffness: 200, damping: 20, mass: 0.5 };
 const SPRING_DOT = { stiffness: 300, damping: 20, mass: 0.3 }; // faster / more responsive
@@ -80,7 +80,7 @@ export const CustomCursor = () => {
   return (
     <>
       {/* ── Outer ring ──────────────────────────────────────────── */}
-      <motion.div
+      <m.div
         className="fixed top-0 left-0 rounded-full pointer-events-none z-[9999] flex items-center justify-center will-change-transform"
         style={{
           x: ringX,
@@ -101,7 +101,7 @@ export const CustomCursor = () => {
         transition={{ type: 'spring', stiffness: 200, damping: 20, mass: 0.5 }}
       >
         {showText && (
-          <motion.span
+          <m.span
             className="uppercase font-bold text-[10px] tracking-widest text-white text-center leading-tight pointer-events-none select-none"
             initial={{ opacity: 0, scale: 0.6 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -109,12 +109,12 @@ export const CustomCursor = () => {
             transition={{ duration: 0.2 }}
           >
             {hoverText}
-          </motion.span>
+          </m.span>
         )}
-      </motion.div>
+      </m.div>
 
       {/* ── Inner dot ───────────────────────────────────────────── */}
-      <motion.div
+      <m.div
         className="fixed top-0 left-0 rounded-full pointer-events-none z-[9999] will-change-transform"
         style={{
           x: dotX,

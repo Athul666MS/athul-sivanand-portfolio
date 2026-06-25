@@ -2,8 +2,8 @@
 <html lang="en" class="lenis lenis-smooth">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ECECEC" />
     
     <!-- SEO Meta Tags -->
     <title>Athul Sivanand | Python Full Stack Developer</title>
@@ -12,6 +12,7 @@
     <meta name="author" content="Athul Sivanand" />
     <link rel="canonical" href="https://athulsivanand.com/" />
     <link rel="manifest" href="/manifest.json" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -27,12 +28,17 @@
     <meta property="twitter:description" content="Portfolio of Athul Sivanand, a Python Full Stack Developer specializing in Django, React, and Microservices Architecture." />
     <meta property="twitter:image" content="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1000" />
 
-    <!-- Critical assets -->
+    <!-- Preload LCP hero image -->
     <link rel="preload" as="image" href="/hero.webp" type="image/webp" fetchpriority="high" />
 
-    <!-- Google Fonts -->
+    <!-- Preconnect to critical third-party origins -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://images.unsplash.com" />
+    <link rel="dns-prefetch" href="https://ui-avatars.com" />
+    <link rel="dns-prefetch" href="https://upload.wikimedia.org" />
+
+    <!-- Google Fonts — non-render-blocking load -->
     <link
       rel="preload"
       as="style"
@@ -41,7 +47,15 @@
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap"
       rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
 
     <!-- JSON-LD Schema.org -->
     <script type="application/ld+json">

@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 interface MagneticButtonProps {
   children: React.ReactNode;
@@ -27,7 +27,7 @@ export const MagneticButton = ({ children, className = '', onClick }: MagneticBu
   const { x, y } = position;
 
   return (
-    <motion.div
+    <m.div
       className={`relative magnetic inline-block cursor-none ${className}`}
       ref={ref}
       onMouseMove={handleMouse}
@@ -37,6 +37,6 @@ export const MagneticButton = ({ children, className = '', onClick }: MagneticBu
       transition={{ type: 'spring', stiffness: 150, damping: 15, mass: 0.1 }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 };

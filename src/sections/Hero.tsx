@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import SplitType from 'split-type';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { m, useScroll, useTransform } from 'framer-motion';
 import { MagneticButton } from '../components/ui/MagneticButton';
-import { FiArrowRight, FiDownload } from 'react-icons/fi';
+
 import resumePdf from '../docs/resume.pdf';
 
 const HERO_IMAGE = '/hero.webp';
@@ -203,22 +203,22 @@ export const Hero = () => {
           <div className="absolute inset-y-[18%] right-[36%] w-px bg-gradient-to-b from-transparent via-black/[0.06] to-transparent" />
           
           {/* Soft glow particles - organic and subtle */}
-          <motion.div 
+          <m.div 
             animate={{ y: [-12, 12], opacity: [0.35, 0.7, 0.35] }}
             transition={{ duration: 8, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
             className="absolute top-[24%] right-[18%] w-16 h-16 bg-primary/[0.045] rounded-full blur-xl"
           />
-          <motion.div 
+          <m.div 
             animate={{ y: [10, -10], opacity: [0.25, 0.6, 0.25] }}
             transition={{ duration: 12, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
             className="absolute bottom-[34%] right-[28%] w-24 h-24 bg-primary/[0.035] rounded-full blur-2xl"
           />
-          <motion.div 
+          <m.div 
             animate={{ y: [-8, 8], x: [-4, 4], opacity: [0.35, 0.65, 0.35] }}
             transition={{ duration: 10, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
             className="absolute top-[55%] right-[12%] w-10 h-10 bg-primary/[0.05] rounded-full blur-lg"
           />
-          <motion.div
+          <m.div
             animate={{ y: [6, -8], x: [0, 8], opacity: [0.25, 0.5, 0.25] }}
             transition={{ duration: 14, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
             className="absolute top-[68%] right-[40%] w-7 h-7 bg-black/[0.045] rounded-full blur-md"
@@ -268,7 +268,7 @@ export const Hero = () => {
                   className="group flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-full bg-primary text-white hover:bg-text-dark transition-all duration-300 font-bold text-[11px] tracking-widest uppercase cursor-none shadow-[0_0_30px_rgba(198,128,69,0.25)] hover:shadow-[0_0_40px_rgba(198,128,69,0.4)]" 
                   data-cursor-text="VIEW"
                 >
-                  View Projects <FiArrowRight className="text-base transform group-hover:translate-x-1.5 transition-transform duration-300" />
+                  View Projects <svg className="w-4 h-4 transform group-hover:translate-x-1.5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
                 </a>
               </MagneticButton>
               <MagneticButton>
@@ -279,7 +279,7 @@ export const Hero = () => {
                   className="group flex min-w-[178px] items-center justify-center gap-2.5 px-7 py-3.5 rounded-full border border-primary/40 text-text-dark hover:bg-primary hover:text-white hover:border-primary transition-all duration-300 font-bold text-[11px] tracking-widest uppercase cursor-none" 
                   data-cursor-text="PDF"
                 >
-                  Download Resume <FiDownload className="text-base shrink-0" />
+                  Download Resume <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
                 </a>
               </MagneticButton>
             </div>
@@ -288,7 +288,7 @@ export const Hero = () => {
 
         {/* ===== CENTER: Hero Focal Image — THE KING ===== */}
         <div className="col-start-4 col-end-10 row-start-1 row-end-4 z-20 flex justify-center items-start pt-16 pointer-events-auto">
-          <motion.div style={{ y: parallaxY }} className="relative w-full max-w-[520px] xl:max-w-[560px]">
+          <m.div style={{ y: parallaxY }} className="relative w-full max-w-[520px] xl:max-w-[560px]">
             <div ref={imageContainerRefDesktop} className="w-full aspect-[3/4] will-change-transform overflow-hidden rounded-2xl shadow-[0_40px_80px_rgba(0,0,0,0.35)]">
               <img 
                 src={HERO_IMAGE}
@@ -296,12 +296,11 @@ export const Hero = () => {
                 width={HERO_WIDTH}
                 height={HERO_HEIGHT}
                 loading="eager"
-                decoding="async"
                 fetchPriority="high"
                 className="w-full h-full object-cover object-top"
               />
             </div>
-          </motion.div>
+          </m.div>
         </div>
 
         {/* ===== Foreground: Name Typography — overlaps CHEST only ===== */}
@@ -327,7 +326,7 @@ export const Hero = () => {
 
         {/* ===== Bottom: Scroll Indicator ===== */}
         <div className="col-start-1 col-end-13 row-start-3 row-end-4 z-40 flex justify-center items-end pb-8 pointer-events-none">
-          <motion.div 
+          <m.div 
             className="scroll-indicator flex flex-col items-center gap-3"
             animate={{ y: [0, 6, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
@@ -336,7 +335,7 @@ export const Hero = () => {
             <svg width="12" height="20" viewBox="0 0 12 20" fill="none" className="text-text-secondary/40">
               <path d="M6 0L6 18M6 18L1 13M6 18L11 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-          </motion.div>
+          </m.div>
         </div>
 
       </div>
@@ -359,7 +358,7 @@ export const Hero = () => {
         </div>
 
         {/* Mobile Image — LARGE and dominant */}
-        <motion.div 
+        <m.div 
           style={{ y: parallaxY }}
           className="w-[88%] sm:w-[75%] max-w-[420px] aspect-[3/4] z-10 mb-6 relative"
         >
@@ -370,12 +369,11 @@ export const Hero = () => {
               width={HERO_WIDTH}
               height={HERO_HEIGHT}
               loading="eager"
-              decoding="async"
               fetchPriority="high"
               className="w-full h-full object-cover object-top"
             />
           </div>
-        </motion.div>
+        </m.div>
 
         {/* Mobile Name — overlapping chest area */}
         <h1 
@@ -400,15 +398,15 @@ export const Hero = () => {
         {/* Mobile Buttons */}
         <div className="flex flex-col sm:flex-row gap-5 w-full sm:w-auto relative z-20">
           <a href="#projects" className="group flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-primary text-white font-bold text-xs tracking-widest uppercase w-full cursor-none shadow-[0_0_25px_rgba(198,128,69,0.25)]" data-cursor-text="VIEW">
-            View Projects <FiArrowRight className="text-lg transform group-hover:translate-x-1 transition-transform" />
+            View Projects <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
           </a>
           <a href={resumePdf} target="_blank" rel="noopener noreferrer" className="group flex min-h-14 w-full items-center justify-center gap-3 rounded-full border border-primary/40 px-5 py-4 text-center text-text-dark hover:bg-primary hover:text-white hover:border-primary transition-all duration-300 font-bold text-[11px] sm:text-xs tracking-widest uppercase cursor-none whitespace-nowrap" data-cursor-text="PDF">
-            Download Resume <FiDownload className="text-lg shrink-0" />
+            Download Resume <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
           </a>
         </div>
 
         {/* Mobile Scroll Indicator */}
-        <motion.div 
+        <m.div 
           className="scroll-indicator mt-auto pt-8 flex flex-col items-center gap-2"
           animate={{ y: [0, 5, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
@@ -417,7 +415,7 @@ export const Hero = () => {
           <svg width="10" height="16" viewBox="0 0 12 20" fill="none" className="text-text-secondary/30">
             <path d="M6 0L6 18M6 18L1 13M6 18L11 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
-        </motion.div>
+        </m.div>
 
       </div>
 

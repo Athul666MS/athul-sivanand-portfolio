@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 export const Contact = () => {
   const [formState, setFormState] = useState<'idle' | 'submitting' | 'success'>('idle');
@@ -50,7 +50,7 @@ export const Contact = () => {
         {/* Right Form */}
         <div className="flex-1 w-full lg:pl-10 mt-10 lg:mt-0">
           {formState === 'success' ? (
-            <motion.div 
+            <m.div 
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               className="h-full flex flex-col items-center justify-center text-center p-8 md:p-12 bg-[#ECECEC] rounded-2xl md:rounded-[3rem]"
@@ -60,7 +60,7 @@ export const Contact = () => {
               </div>
               <h3 className="text-3xl md:text-5xl font-serif italic mb-4 md:mb-6 text-primary">Message Sent</h3>
               <p className="text-text-secondary font-sans text-lg md:text-xl">Thank you for reaching out. I'll get back to you shortly.</p>
-            </motion.div>
+            </m.div>
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col gap-10 md:gap-16 group/form w-full">
               <div className="relative z-0 w-full group">

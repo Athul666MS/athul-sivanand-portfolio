@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { MagneticButton } from '../ui/MagneticButton';
 import { FiX } from 'react-icons/fi';
 
@@ -134,7 +134,7 @@ export const Navbar = () => {
             >
               <AnimatePresence mode="wait" initial={false}>
                 {isOpen ? (
-                  <motion.span
+                  <m.span
                     key="close"
                     initial={{ opacity: 0, rotate: -45, scale: 0.8 }}
                     animate={{ opacity: 1, rotate: 0, scale: 1 }}
@@ -143,9 +143,9 @@ export const Navbar = () => {
                     className="text-4xl md:text-5xl"
                   >
                     <FiX />
-                  </motion.span>
+                  </m.span>
                 ) : (
-                  <motion.span
+                  <m.span
                     key="menu"
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -156,7 +156,7 @@ export const Navbar = () => {
                     <span className="w-7 md:w-9 h-[2px] bg-white block" />
                     <span className="w-7 md:w-9 h-[2px] bg-white block" />
                     <span className="w-7 md:w-9 h-[2px] bg-white block" />
-                  </motion.span>
+                  </m.span>
                 )}
               </AnimatePresence>
             </button>
@@ -166,7 +166,7 @@ export const Navbar = () => {
 
       <AnimatePresence>
         {isOpen && (
-          <motion.div
+          <m.div
             variants={menuVars}
             initial="initial"
             animate="animate"
@@ -181,17 +181,17 @@ export const Navbar = () => {
             </div>
 
             {/* Top Left Navigation Label */}
-            <motion.div 
+            <m.div 
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0, transition: { delay: 0.6, duration: 0.6 } }}
               exit={{ opacity: 0, transition: { duration: 0.3 } }}
               className="absolute top-8 left-4 sm:top-12 sm:left-8 md:top-16 md:left-16 lg:left-24 text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase text-white/40 pointer-events-none z-10"
             >
               
-            </motion.div>
+            </m.div>
 
             {/* Center Menu Items */}
-            <motion.div 
+            <m.div 
               variants={containerVars} 
               initial="initial" 
               animate="open" 
@@ -200,7 +200,7 @@ export const Navbar = () => {
             >
               {navLinks.map((link, idx) => (
                 <div key={idx} className="overflow-hidden flex justify-center py-2 md:py-3 w-full">
-                  <motion.div variants={mobileLinkVars}>
+                  <m.div variants={mobileLinkVars}>
                     <a
                       href={link.href}
                       onClick={(e) => scrollToSection(e, link.href)}
@@ -222,13 +222,13 @@ export const Navbar = () => {
                         {link.name}
                       </span>
                     </a>
-                  </motion.div>
+                  </m.div>
                 </div>
               ))}
-            </motion.div>
+            </m.div>
 
             {/* Bottom Left Social Links */}
-            <motion.div 
+            <m.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0, transition: { delay: 0.8, duration: 0.6 } }}
               exit={{ opacity: 0, transition: { duration: 0.3 } }}
@@ -252,10 +252,10 @@ export const Navbar = () => {
               >
                 LinkedIn
               </a>
-            </motion.div>
+            </m.div>
 
             {/* Bottom Right Email */}
-            <motion.div 
+            <m.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0, transition: { delay: 0.8, duration: 0.6 } }}
               exit={{ opacity: 0, transition: { duration: 0.3 } }}
@@ -268,9 +268,9 @@ export const Navbar = () => {
               >
                 athulsivanand14@gmail.com
               </a>
-            </motion.div>
+            </m.div>
 
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { LazyMotion, domAnimation } from 'framer-motion';
 import { useSmoothScroll } from './hooks/useSmoothScroll';
 import { CustomCursor } from './components/ui/CustomCursor';
 import { Navbar } from './components/layout/Navbar';
@@ -10,14 +10,12 @@ function App() {
   useSmoothScroll();
 
   return (
-    <Router>
+    <LazyMotion features={domAnimation} strict>
       <CustomCursor />
       <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
+      <Home />
       <Footer />
-    </Router>
+    </LazyMotion>
   );
 }
 

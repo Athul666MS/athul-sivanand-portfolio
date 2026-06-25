@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { m, useScroll, useTransform } from 'framer-motion';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -164,7 +164,7 @@ export const Skills = () => {
           </p>
         </div>
 
-        <motion.div style={{ y }} className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 md:gap-8">
+        <m.div style={{ y }} className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 md:gap-8">
           {skills.map((skillGroup, idx) => {
             return (
               <div
@@ -214,7 +214,7 @@ export const Skills = () => {
               </div>
             );
           })}
-        </motion.div>
+        </m.div>
 
       </div>
     </section>

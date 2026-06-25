@@ -225,8 +225,9 @@ export const Experience = () => {
                     alt={`${exp.company} logo`}
                     width={56}
                     height={56}
-                    loading="eager"
-                    decoding="sync"
+                    loading="lazy"
+                    decoding="async"
+                    fetchPriority="low"
                     className="w-14 h-14 rounded-2xl shadow-md group-hover:scale-105 transition-transform"
                   />
                   <div>
@@ -271,8 +272,9 @@ export const Experience = () => {
                   alt="Developer workspace at SMEC Technologies"
                   width={800}
                   height={1000}
-                  loading="eager"
-                  decoding="sync"
+                  loading="lazy"
+                  decoding="async"
+                  fetchPriority="low"
                   className="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-[1.5s] ease-[cubic-bezier(0.25,1,0.5,1)] filter grayscale group-hover:grayscale-0"
                 />
                 {/* Cinematic overlays */}

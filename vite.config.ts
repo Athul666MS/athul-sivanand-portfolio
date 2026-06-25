@@ -22,14 +22,22 @@ export default defineConfig({
       ext: '.gz',
       threshold: 1024,
     }),
+    viteCompression({
+      algorithm: 'brotliCompress',
+      ext: '.br',
+      threshold: 1024,
+    }),
   ],
   build: {
-    target: 'es2020',
+    target: 'esnext',
     cssMinify: true,
+    modulePreload: {
+      polyfill: false,
+    },
     rollupOptions: {
       output: {
         manualChunks(id) {
-          if (id.includes('node_modules/react-dom') || id.includes('node_modules/react/') || id.includes('node_modules/react-router-dom')) {
+          if (id.includes('node_modules/react-dom') || id.includes('node_modules/react/')) {
             return 'vendor-react'
           }
           if (id.includes('node_modules/framer-motion')) {
@@ -37,6 +45,9 @@ export default defineConfig({
           }
           if (id.includes('node_modules/gsap')) {
             return 'vendor-gsap'
+          }
+          if (id.includes('node_modules/lenis') || id.includes('node_modules/split-type')) {
+            return 'vendor-utils'
           }
         },
       },

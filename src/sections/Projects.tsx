@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { m, useScroll, useTransform } from 'framer-motion';
 import { FiGithub, FiArrowRight } from 'react-icons/fi';
 import { MagneticButton } from '../components/ui/MagneticButton';
 
@@ -45,7 +45,7 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0], index: n
   const imgY = useTransform(scrollYProgress, [0, 1], [-80, 80]);
 
   return (
-    <motion.div 
+    <m.div 
       ref={containerRef}
       initial={{ y: 80, opacity: 0 }}
       whileInView={{ y: 0, opacity: 1 }}
@@ -57,7 +57,7 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0], index: n
         
         {/* IMAGE — 55% width on desktop */}
         <div className={`w-full lg:w-[55%] aspect-[16/10] overflow-hidden rounded-2xl lg:rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.3)] relative z-10 pointer-events-auto`}>
-          <motion.div 
+          <m.div 
             style={{ y: imgY }}
             className="absolute inset-0 w-full h-[130%] -top-[15%] will-change-transform"
           >
@@ -71,7 +71,7 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0], index: n
               className="w-full h-full object-cover origin-center scale-110 group-hover:scale-100" 
               style={{ transition: 'transform 1.5s cubic-bezier(0.25, 1, 0.5, 1)' }}
             />
-          </motion.div>
+          </m.div>
           {/* Cinematic overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent group-hover:from-black/60 transition-all duration-[1.5s] pointer-events-none" />
         </div>
@@ -137,7 +137,7 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0], index: n
           </div>
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 };
 
