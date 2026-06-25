@@ -151,6 +151,7 @@ export const Hero = () => {
 
   return (
     <section 
+      id="home"
       ref={containerRef}
       className="relative min-h-screen lg:h-screen w-full overflow-hidden bg-background"
       onMouseMove={handleMouseMove}

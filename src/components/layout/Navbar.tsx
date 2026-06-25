@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MagneticButton } from '../ui/MagneticButton';
-import { Link } from 'react-router-dom';
 import { FiX } from 'react-icons/fi';
 
 const navLinks = [
-  { name: 'Home', href: '/', num: '01' },
+  { name: 'Home', href: '#home', num: '01' },
   { name: 'About', href: '#about', num: '02' },
   { name: 'Skills', href: '#skills', num: '03' },
   { name: 'Experience', href: '#experience', num: '04' },
@@ -16,8 +15,75 @@ const navLinks = [
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
 
   const toggleMenu = () => setIsOpen(!isOpen);
+
+  // Smooth scroll to section using native scrollIntoView
+  const scrollToSection = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+
+    const id = href.replace('#', '');
+    const target = document.getElementById(id);
+
+    if (target) {
+      // Close mobile menu first if open
+      if (isOpen) setIsOpen(false);
+
+      // Small delay if menu was open to allow it to animate out
+      const delay = isOpen ? 100 : 0;
+      setTimeout(() => {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Update URL hash without scroll jump
+        window.history.pushState(null, '', href);
+      }, delay);
+    }
+  }, [isOpen]);
+
+  // Track active section via IntersectionObserver
+  useEffect(() => {
+    const sectionIds = navLinks.map(l => l.href.replace('#', ''));
+    const observers: IntersectionObserver[] = [];
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setActiveSection(id);
+          }
+        },
+        {
+          rootMargin: '-40% 0px -55% 0px',
+          threshold: 0,
+        }
+      );
+
+      observer.observe(el);
+      observers.push(observer);
+    });
+
+    return () => {
+      observers.forEach(obs => obs.disconnect());
+    };
+  }, []);
+
+  // Handle direct URL access with hash fragment
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      const id = hash.replace('#', '');
+      const target = document.getElementById(id);
+      if (target) {
+        // Delay to allow page to render first
+        setTimeout(() => {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 500);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? 'hidden' : '';
@@ -48,9 +114,14 @@ export const Navbar = () => {
   return (
     <>
       <nav className="fixed w-full z-[120] top-0 py-6 md:py-10 px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 flex justify-between items-center mix-blend-difference text-white pointer-events-none">
-        <Link to="/" className="text-2xl md:text-3xl font-bold font-serif italic tracking-widest z-[101] hover:text-primary transition-colors pointer-events-auto" data-cursor-text="HOME">
+        <a
+          href="#home"
+          onClick={(e) => scrollToSection(e, '#home')}
+          className="text-2xl md:text-3xl font-bold font-serif italic tracking-widest z-[101] hover:text-primary transition-colors pointer-events-auto"
+          data-cursor-text="HOME"
+        >
           Athul.
-        </Link>
+        </a>
         <div className="z-[101] pointer-events-auto">
           <MagneticButton>
             <button
@@ -130,19 +201,27 @@ export const Navbar = () => {
               {navLinks.map((link, idx) => (
                 <div key={idx} className="overflow-hidden flex justify-center py-2 md:py-3 w-full">
                   <motion.div variants={mobileLinkVars}>
-                    <Link
-                      to={link.href}
-                      onClick={toggleMenu}
-                      className="group flex items-center gap-4 md:gap-8 text-[clamp(1.75rem,3.5vw,3rem)] font-sans uppercase font-black tracking-normal leading-[1] text-white transition-all duration-500 cursor-none w-max mx-auto md:hover:scale-105 group-hover/nav:text-white/20 hover:!text-primary"
+                    <a
+                      href={link.href}
+                      onClick={(e) => scrollToSection(e, link.href)}
+                      className={`group flex items-center gap-4 md:gap-8 text-[clamp(1.75rem,3.5vw,3rem)] font-sans uppercase font-black tracking-normal leading-[1] transition-all duration-500 cursor-none w-max mx-auto md:hover:scale-105 group-hover/nav:text-white/20 hover:!text-primary ${
+                        activeSection === link.href.replace('#', '')
+                          ? 'text-primary'
+                          : 'text-white'
+                      }`}
                       data-cursor-text={link.name.toUpperCase()}
                     >
-                      <span className="text-xs md:text-sm font-mono tracking-widest text-white/40 group-hover:text-primary/60 transition-colors duration-500 mt-1 md:mt-2 block">
+                      <span className={`text-xs md:text-sm font-mono tracking-widest transition-colors duration-500 mt-1 md:mt-2 block ${
+                        activeSection === link.href.replace('#', '')
+                          ? 'text-primary/60'
+                          : 'text-white/40 group-hover:text-primary/60'
+                      }`}>
                         {link.num}
                       </span>
                       <span className="relative z-10 block">
                         {link.name}
                       </span>
-                    </Link>
+                    </a>
                   </motion.div>
                 </div>
               ))}

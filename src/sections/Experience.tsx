@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { FiClock, FiActivity, FiServer, FiLock, FiTerminal } from 'react-icons/fi';
@@ -7,7 +7,8 @@ gsap.registerPlugin(ScrollTrigger);
 
 export const Experience = () => {
   const sectionRef = useRef<HTMLElement>(null);
-  const lineRef = useRef<HTMLDivElement>(null);
+  const progressLineRef = useRef<HTMLDivElement>(null);
+  const ctxRef = useRef<gsap.Context | null>(null);
 
   const exp = {
     role: "Junior Developer",
@@ -23,26 +24,42 @@ export const Experience = () => {
     ]
   };
 
-  useEffect(() => {
-    if (!sectionRef.current || !lineRef.current) return;
+  /**
+   * Creates all GSAP animations and ScrollTriggers.
+   * Called only after layout is fully stable.
+   */
+  const initAnimations = useCallback(() => {
+    const section = sectionRef.current;
+    const progressLine = progressLineRef.current;
+    if (!section || !progressLine) return;
 
-    const ctx = gsap.context(() => {
-      const q = gsap.utils.selector(sectionRef);
+    // Kill any previous context to avoid duplicates
+    if (ctxRef.current) {
+      ctxRef.current.revert();
+    }
 
-      // Copper line drawing
-      gsap.fromTo(lineRef.current, 
-        { height: 0 },
-        {
-          height: "100%",
-          ease: "none",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 40%",
-            end: "bottom 40%",
-            scrub: 1
-          }
-        }
-      );
+    ctxRef.current = gsap.context(() => {
+      const q = gsap.utils.selector(section);
+
+      // ─── Thermometer Progress Line ───
+      // Animate ONLY the colored progress line's scaleY from 0 to 1.
+      // The circle node stays fixed, only the line grows.
+      gsap.set(progressLine, {
+        scaleY: 0,
+        transformOrigin: 'top center',
+      });
+
+      gsap.to(progressLine, {
+        scaleY: 1,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 40%',
+          end: 'bottom 40%',
+          scrub: true,
+          invalidateOnRefresh: true,
+        },
+      });
 
       // Card entrance
       gsap.fromTo(q('.exp-card'),
@@ -50,7 +67,7 @@ export const Experience = () => {
         {
           y: 0, opacity: 1, duration: 1.2, ease: "power3.out",
           clearProps: "all",
-          scrollTrigger: { trigger: q('.exp-card'), start: "top 80%" }
+          scrollTrigger: { trigger: q('.exp-card'), start: "top 80%", invalidateOnRefresh: true }
         }
       );
 
@@ -62,7 +79,7 @@ export const Experience = () => {
           duration: 0.5,
           ease: "back.out(1.7)",
           clearProps: "scale",
-          scrollTrigger: { trigger: q('.exp-card'), start: "top 60%" }
+          scrollTrigger: { trigger: q('.exp-card'), start: "top 60%", invalidateOnRefresh: true }
         }
       );
 
@@ -72,7 +89,7 @@ export const Experience = () => {
         {
           x: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: "power3.out",
           clearProps: "all",
-          scrollTrigger: { trigger: q('.exp-card'), start: "top 60%" }
+          scrollTrigger: { trigger: q('.exp-card'), start: "top 60%", invalidateOnRefresh: true }
         }
       );
 
@@ -82,13 +99,61 @@ export const Experience = () => {
         {
           y: 0, opacity: 1, scale: 1, duration: 1.5, ease: "power3.out",
           clearProps: "all",
-          scrollTrigger: { trigger: q('.exp-image'), start: "top 80%" }
+          scrollTrigger: { trigger: q('.exp-image'), start: "top 80%", invalidateOnRefresh: true }
         }
       );
-    }, sectionRef);
-
-    return () => ctx.revert();
+    }, section);
   }, []);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    /**
+     * Strategy: Wait for ALL layout-affecting resources before creating ScrollTriggers.
+     *
+     * Root cause of the desktop bug: ScrollTrigger.create() measures element positions
+     * immediately. If fonts haven't loaded or images above this section haven't resolved,
+     * those measurements are wrong. On resize, ScrollTrigger.refresh() recalculates
+     * with the correct layout — which is why resize "fixes" it.
+     *
+     * The fix: Defer animation init until fonts + images within the section are loaded,
+     * then use requestAnimationFrame to ensure the browser has painted the final layout.
+     */
+
+    // Collect all images within this section that contribute to layout
+    const sectionImages = Array.from(section.querySelectorAll('img'));
+
+    const imagePromises = sectionImages.map((img) => {
+      if (img.complete && img.naturalHeight > 0) {
+        return Promise.resolve();
+      }
+      return new Promise<void>((resolve) => {
+        img.addEventListener('load', () => resolve(), { once: true });
+        img.addEventListener('error', () => resolve(), { once: true });
+      });
+    });
+
+    // Also wait for fonts — they affect text layout and therefore section heights
+    const fontPromise = document.fonts?.ready ?? Promise.resolve();
+
+    Promise.all([fontPromise, ...imagePromises]).then(() => {
+      // Use double-rAF to ensure the browser has fully laid out and painted
+      // before we measure. A single rAF can fire before paint on some browsers.
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          initAnimations();
+        });
+      });
+    });
+
+    return () => {
+      if (ctxRef.current) {
+        ctxRef.current.revert();
+        ctxRef.current = null;
+      }
+    };
+  }, [initAnimations]);
 
   return (
     <section id="experience" ref={sectionRef} className="py-20 md:py-32 lg:py-48 bg-background text-text-dark relative z-20 overflow-hidden">
@@ -109,12 +174,33 @@ export const Experience = () => {
 
         <div className="relative w-full max-w-7xl mx-auto">
           
-          {/* Central Timeline Line */}
-          <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-[2px] bg-black/5 md:-translate-x-1/2 rounded-full">
-            <div ref={lineRef} className="w-full bg-primary origin-top shadow-[0_0_10px_rgba(198,128,69,0.5)] rounded-full" />
+          {/* ─── Timeline Structure ─── */}
+          {/* 
+            Layer architecture:
+            1. Background line (gray) — always full height, always visible
+            2. Progress line (brand color) — overlaid, grows via scaleY on scroll
+            3. Circle node — fixed at top, never moves
+          */}
+          <div className="absolute left-6 md:left-1/2 top-0 bottom-0 md:-translate-x-1/2" style={{ width: '2px' }}>
+            {/* Layer 1: Background line — full height, always visible */}
+            <div
+              className="absolute inset-0 rounded-full"
+              style={{ backgroundColor: '#E5E5E5' }}
+            />
+            {/* Layer 2: Progress line — grows from top via scaleY */}
+            <div
+              ref={progressLineRef}
+              className="absolute inset-0 rounded-full will-change-transform"
+              style={{
+                backgroundColor: '#C68045',
+                boxShadow: '0 0 10px rgba(198,128,69,0.5)',
+                transformOrigin: 'top center',
+                transform: 'scaleY(0)',
+              }}
+            />
           </div>
 
-          {/* Timeline node — anchored to the line (outer) + scale animation (inner) */}
+          {/* Timeline node — fixed at top, never moves */}
           <div
             className="pointer-events-none absolute left-6 top-[5.5rem] z-20 w-6 h-6 -translate-x-1/2 md:left-1/2"
             aria-hidden="true"
@@ -139,8 +225,8 @@ export const Experience = () => {
                     alt={`${exp.company} logo`}
                     width={56}
                     height={56}
-                    loading="lazy"
-                    decoding="async"
+                    loading="eager"
+                    decoding="sync"
                     className="w-14 h-14 rounded-2xl shadow-md group-hover:scale-105 transition-transform"
                   />
                   <div>
@@ -185,8 +271,8 @@ export const Experience = () => {
                   alt="Developer workspace at SMEC Technologies"
                   width={800}
                   height={1000}
-                  loading="lazy"
-                  decoding="async"
+                  loading="eager"
+                  decoding="sync"
                   className="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-[1.5s] ease-[cubic-bezier(0.25,1,0.5,1)] filter grayscale group-hover:grayscale-0"
                 />
                 {/* Cinematic overlays */}

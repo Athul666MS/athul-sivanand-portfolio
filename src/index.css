@@ -73,6 +73,21 @@
   ::selection {
     @apply bg-primary text-white;
   }
+
+  /* Account for fixed navbar height when scrolling to sections */
+  section[id] {
+    scroll-margin-top: 80px;
+  }
+
+  @media (min-width: 768px) {
+    section[id] {
+      scroll-margin-top: 100px;
+    }
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 /* Lenis Smooth Scroll Recommended CSS */
