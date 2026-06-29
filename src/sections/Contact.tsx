@@ -3,11 +3,46 @@ import { m } from 'framer-motion';
 
 export const Contact = () => {
   const [formState, setFormState] = useState<'idle' | 'submitting' | 'success'>('idle');
+  const [emailError, setEmailError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+    const email = formData.get('email') as string;
+    
+    // Strict email validation regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setEmailError("Please enter a valid email address");
+      return;
+    }
+    
+    setEmailError('');
     setFormState('submitting');
-    setTimeout(() => setFormState('success'), 2000);
+
+    formData.append("access_key", import.meta.env.VITE_WEB3FORMS_KEY);
+
+    try {
+      const res = await fetch(import.meta.env.VITE_CONTACT_FORM_ENDPOINT, {
+        method: "POST",
+        headers: {
+          'Accept': 'application/json'
+        },
+        body: formData
+      });
+      const data = await res.json();
+      
+      if (data.success) {
+        setFormState('success');
+      } else {
+        console.error("Error submitting form", data);
+        setFormState('idle');
+      }
+    } catch (error) {
+      console.error("Error submitting form", error);
+      setFormState('idle');
+    }
   };
 
   return (
@@ -64,17 +99,18 @@ export const Contact = () => {
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col gap-10 md:gap-16 group/form w-full">
               <div className="relative z-0 w-full group">
-                <input type="text" id="name" required className="block py-3 md:py-4 px-0 w-full text-xl md:text-3xl font-serif text-black bg-transparent border-0 border-b-[3px] border-black/20 appearance-none focus:outline-none focus:ring-0 focus:border-primary peer cursor-none" placeholder=" " data-cursor-text="TYPE" />
+                <input type="text" id="name" name="name" required className="block py-3 md:py-4 px-0 w-full text-xl md:text-3xl font-serif text-black bg-transparent border-0 border-b-[3px] border-black/20 appearance-none focus:outline-none focus:ring-0 focus:border-primary peer cursor-none" placeholder=" " data-cursor-text="TYPE" />
                 <label htmlFor="name" className="absolute text-lg md:text-2xl font-sans font-medium text-text-secondary duration-300 transform -translate-y-8 md:-translate-y-10 scale-75 top-3 md:top-4 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8 md:peer-focus:-translate-y-10">What's your name?</label>
               </div>
               
               <div className="relative z-0 w-full group">
-                <input type="email" id="email" required className="block py-3 md:py-4 px-0 w-full text-xl md:text-3xl font-serif text-black bg-transparent border-0 border-b-[3px] border-black/20 appearance-none focus:outline-none focus:ring-0 focus:border-primary peer cursor-none" placeholder=" " data-cursor-text="TYPE" />
-                <label htmlFor="email" className="absolute text-lg md:text-2xl font-sans font-medium text-text-secondary duration-300 transform -translate-y-8 md:-translate-y-10 scale-75 top-3 md:top-4 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8 md:peer-focus:-translate-y-10">What's your email?</label>
+                <input type="email" id="email" name="email" required className={`block py-3 md:py-4 px-0 w-full text-xl md:text-3xl font-serif text-black bg-transparent border-0 border-b-[3px] ${emailError ? 'border-red-500' : 'border-black/20 focus:border-primary'} appearance-none focus:outline-none focus:ring-0 peer cursor-none transition-colors`} placeholder=" " data-cursor-text="TYPE" onChange={() => setEmailError('')} />
+                <label htmlFor="email" className={`absolute text-lg md:text-2xl font-sans font-medium ${emailError ? 'text-red-500' : 'text-text-secondary peer-focus:text-primary'} duration-300 transform -translate-y-8 md:-translate-y-10 scale-75 top-3 md:top-4 -z-10 origin-[0] peer-focus:left-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8 md:peer-focus:-translate-y-10`}>What's your email?</label>
+                {emailError && <p className="absolute -bottom-6 left-0 text-red-500 text-sm font-sans">{emailError}</p>}
               </div>
 
               <div className="relative z-0 w-full group">
-                <textarea id="message" required rows={4} className="block py-3 md:py-4 px-0 w-full text-xl md:text-3xl font-serif text-black bg-transparent border-0 border-b-[3px] border-black/20 appearance-none focus:outline-none focus:ring-0 focus:border-primary peer resize-none cursor-none" placeholder=" " data-cursor-text="TYPE"></textarea>
+                <textarea id="message" name="message" required rows={4} className="block py-3 md:py-4 px-0 w-full text-xl md:text-3xl font-serif text-black bg-transparent border-0 border-b-[3px] border-black/20 appearance-none focus:outline-none focus:ring-0 focus:border-primary peer resize-none cursor-none" placeholder=" " data-cursor-text="TYPE"></textarea>
                 <label htmlFor="message" className="absolute text-lg md:text-2xl font-sans font-medium text-text-secondary duration-300 transform -translate-y-8 md:-translate-y-10 scale-75 top-3 md:top-4 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8 md:peer-focus:-translate-y-10">Tell me about your project</label>
               </div>
 
