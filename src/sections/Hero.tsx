@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 import gsap from 'gsap';
 import SplitType from 'split-type';
 import { m, useScroll, useTransform } from 'framer-motion';
@@ -9,6 +9,19 @@ import resumePdf from '../docs/resume.pdf';
 const HERO_IMAGE = '/hero.webp';
 const HERO_WIDTH = 1120;
 const HERO_HEIGHT = 1400;
+
+// ── Hoisted animation constants (avoid inline object recreation) ──
+const PARTICLE_1_ANIMATE = { y: [-12, 12], opacity: [0.35, 0.7, 0.35] };
+const PARTICLE_1_TRANSITION = { duration: 8, repeat: Infinity, repeatType: 'reverse' as const, ease: 'easeInOut' as const };
+const PARTICLE_2_ANIMATE = { y: [10, -10], opacity: [0.25, 0.6, 0.25] };
+const PARTICLE_2_TRANSITION = { duration: 12, repeat: Infinity, repeatType: 'reverse' as const, ease: 'easeInOut' as const };
+const PARTICLE_3_ANIMATE = { y: [-8, 8], x: [-4, 4], opacity: [0.35, 0.65, 0.35] };
+const PARTICLE_3_TRANSITION = { duration: 10, repeat: Infinity, repeatType: 'reverse' as const, ease: 'easeInOut' as const };
+const PARTICLE_4_ANIMATE = { y: [6, -8], x: [0, 8], opacity: [0.25, 0.5, 0.25] };
+const PARTICLE_4_TRANSITION = { duration: 14, repeat: Infinity, repeatType: 'reverse' as const, ease: 'easeInOut' as const };
+const SCROLL_INDICATOR_ANIMATE = { y: [0, 6, 0] };
+const SCROLL_INDICATOR_TRANSITION = { duration: 2, repeat: Infinity, ease: 'easeInOut' as const };
+const SCROLL_INDICATOR_MOBILE_ANIMATE = { y: [0, 5, 0] };
 
 export const Hero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -105,46 +118,53 @@ export const Hero = () => {
     return () => ctx.revert();
   }, []);
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!containerRef.current) return;
-    
-    const { clientX, clientY } = e;
-    const { innerWidth, innerHeight } = window;
-    
-    const xPos = (clientX / innerWidth - 0.5) * 20;
-    const yPos = (clientY / innerHeight - 0.5) * 20;
+  const rafRef = useRef<number>(0);
 
-    const imageTargets: Element[] = [];
-    if (imageContainerRefDesktop.current) imageTargets.push(imageContainerRefDesktop.current);
-    if (imageContainerRefMobile.current) imageTargets.push(imageContainerRefMobile.current);
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    if (rafRef.current) return; // Skip if a frame is already scheduled
 
-    if (imageTargets.length > 0) {
-      gsap.to(imageTargets, {
-        x: xPos * 1.5,
-        y: yPos * 1.5,
-        duration: 1,
-        ease: "power2.out"
-      });
-    }
+    rafRef.current = requestAnimationFrame(() => {
+      rafRef.current = 0;
+      if (!containerRef.current) return;
 
-    if (bgTextRef.current) {
-      gsap.to(bgTextRef.current, {
-        x: -xPos * 3,
-        y: -yPos * 3,
-        duration: 1.5,
-        ease: "power2.out"
-      });
-    }
+      const { clientX, clientY } = e;
+      const { innerWidth, innerHeight } = window;
 
-    if (glowRef.current) {
-      gsap.to(glowRef.current, {
-        x: xPos * 4,
-        y: yPos * 4,
-        duration: 1.2,
-        ease: "power2.out"
-      });
-    }
-  };
+      const xPos = (clientX / innerWidth - 0.5) * 20;
+      const yPos = (clientY / innerHeight - 0.5) * 20;
+
+      const imageTargets: Element[] = [];
+      if (imageContainerRefDesktop.current) imageTargets.push(imageContainerRefDesktop.current);
+      if (imageContainerRefMobile.current) imageTargets.push(imageContainerRefMobile.current);
+
+      if (imageTargets.length > 0) {
+        gsap.to(imageTargets, {
+          x: xPos * 1.5,
+          y: yPos * 1.5,
+          duration: 1,
+          ease: "power2.out"
+        });
+      }
+
+      if (bgTextRef.current) {
+        gsap.to(bgTextRef.current, {
+          x: -xPos * 3,
+          y: -yPos * 3,
+          duration: 1.5,
+          ease: "power2.out"
+        });
+      }
+
+      if (glowRef.current) {
+        gsap.to(glowRef.current, {
+          x: xPos * 4,
+          y: yPos * 4,
+          duration: 1.2,
+          ease: "power2.out"
+        });
+      }
+    });
+  }, []);
 
   const { scrollY } = useScroll();
   const parallaxY = useTransform(scrollY, [0, 800], [0, 120]);
@@ -204,23 +224,23 @@ export const Hero = () => {
           
           {/* Soft glow particles - organic and subtle */}
           <m.div 
-            animate={{ y: [-12, 12], opacity: [0.35, 0.7, 0.35] }}
-            transition={{ duration: 8, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
+            animate={PARTICLE_1_ANIMATE}
+            transition={PARTICLE_1_TRANSITION}
             className="absolute top-[24%] right-[18%] w-16 h-16 bg-primary/[0.045] rounded-full blur-xl"
           />
           <m.div 
-            animate={{ y: [10, -10], opacity: [0.25, 0.6, 0.25] }}
-            transition={{ duration: 12, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
+            animate={PARTICLE_2_ANIMATE}
+            transition={PARTICLE_2_TRANSITION}
             className="absolute bottom-[34%] right-[28%] w-24 h-24 bg-primary/[0.035] rounded-full blur-2xl"
           />
           <m.div 
-            animate={{ y: [-8, 8], x: [-4, 4], opacity: [0.35, 0.65, 0.35] }}
-            transition={{ duration: 10, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
+            animate={PARTICLE_3_ANIMATE}
+            transition={PARTICLE_3_TRANSITION}
             className="absolute top-[55%] right-[12%] w-10 h-10 bg-primary/[0.05] rounded-full blur-lg"
           />
           <m.div
-            animate={{ y: [6, -8], x: [0, 8], opacity: [0.25, 0.5, 0.25] }}
-            transition={{ duration: 14, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
+            animate={PARTICLE_4_ANIMATE}
+            transition={PARTICLE_4_TRANSITION}
             className="absolute top-[68%] right-[40%] w-7 h-7 bg-black/[0.045] rounded-full blur-md"
           />
 
@@ -328,8 +348,8 @@ export const Hero = () => {
         <div className="col-start-1 col-end-13 row-start-3 row-end-4 z-40 flex justify-center items-end pb-8 pointer-events-none">
           <m.div 
             className="scroll-indicator flex flex-col items-center gap-3"
-            animate={{ y: [0, 6, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            animate={SCROLL_INDICATOR_ANIMATE}
+            transition={SCROLL_INDICATOR_TRANSITION}
           >
             <span className="text-[10px] font-bold tracking-[0.4em] uppercase text-text-secondary/50">Scroll</span>
             <svg width="12" height="20" viewBox="0 0 12 20" fill="none" className="text-text-secondary/40">
@@ -408,8 +428,8 @@ export const Hero = () => {
         {/* Mobile Scroll Indicator */}
         <m.div 
           className="scroll-indicator mt-auto pt-8 flex flex-col items-center gap-2"
-          animate={{ y: [0, 5, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          animate={SCROLL_INDICATOR_MOBILE_ANIMATE}
+          transition={SCROLL_INDICATOR_TRANSITION}
         >
           <span className="text-[9px] font-bold tracking-[0.4em] uppercase text-text-secondary/40">Scroll</span>
           <svg width="10" height="16" viewBox="0 0 12 20" fill="none" className="text-text-secondary/30">

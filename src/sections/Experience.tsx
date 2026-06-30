@@ -1,28 +1,36 @@
-import React, { useEffect, useRef, useCallback } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { FiClock, FiActivity, FiServer, FiLock, FiTerminal } from 'react-icons/fi';
 
 gsap.registerPlugin(ScrollTrigger);
+
+const exp = {
+  role: "Junior Developer",
+  company: "SMEC Technologies",
+  period: "2025 - 2026",
+  duration: "Full Time",
+  logo: "https://ui-avatars.com/api/?name=SM&background=111111&color=C68045&font-size=0.4",
+  achievements: [
+    { icon: 'server', text: "Engineered scalable backend systems with Django and MySQL." },
+    { icon: 'activity', text: "Optimized query performance reducing backend response time by 60-70%." },
+    { icon: 'lock', text: "Developed modular REST API endpoints with role-based access control." },
+    { icon: 'terminal', text: "Managed deployments across Docker, Postman, and AWS infrastructure." }
+  ]
+};
+
+import type { ReactNode } from 'react';
+
+const iconMap: Record<string, ReactNode> = {
+  server: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" /></svg>,
+  activity: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>,
+  lock: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>,
+  terminal: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>,
+};
 
 export const Experience = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const progressLineRef = useRef<HTMLDivElement>(null);
   const ctxRef = useRef<gsap.Context | null>(null);
-
-  const exp = {
-    role: "Junior Developer",
-    company: "SMEC Technologies",
-    period: "2025 - 2026",
-    duration: "Full Time",
-    logo: "https://ui-avatars.com/api/?name=SM&background=111111&color=C68045&font-size=0.4",
-    achievements: [
-      { icon: <FiServer className="w-5 h-5" />, text: "Engineered scalable backend systems with Django and MySQL." },
-      { icon: <FiActivity className="w-5 h-5" />, text: "Optimized query performance reducing backend response time by 60-70%." },
-      { icon: <FiLock className="w-5 h-5" />, text: "Developed modular REST API endpoints with role-based access control." },
-      { icon: <FiTerminal className="w-5 h-5" />, text: "Managed deployments across Docker, Postman, and AWS infrastructure." }
-    ]
-  };
 
   /**
    * Creates all GSAP animations and ScrollTriggers.
@@ -215,7 +223,7 @@ export const Experience = () => {
 
               {/* Glassmorphism Card */}
               <div 
-                className="exp-card w-full bg-white/60 backdrop-blur-2xl p-6 sm:p-8 md:p-10 rounded-[2rem] border border-white shadow-[0_20px_40px_rgba(0,0,0,0.05)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.1)] hover:border-primary/20 transition-all duration-500 cursor-none group will-change-transform" 
+                className="exp-card w-full bg-white/60 backdrop-blur-2xl p-6 sm:p-8 md:p-10 rounded-[2rem] border border-white shadow-[0_20px_40px_rgba(0,0,0,0.05)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.1)] hover:border-primary/20 transition-all duration-500 cursor-none group" 
                 data-cursor-text="SMEC"
               >
                 {/* Header */}
@@ -243,7 +251,7 @@ export const Experience = () => {
                 {/* Badges */}
                 <div className="flex flex-wrap gap-3 mb-8">
                   <div className="flex items-center gap-2 px-4 py-2 bg-black/5 rounded-full border border-black/10 text-xs font-bold uppercase tracking-widest text-text-secondary">
-                    <FiClock className="text-primary" /> {exp.period}
+                    <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> {exp.period}
                   </div>
                   <div className="flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full border border-primary/20 text-xs font-bold uppercase tracking-widest text-primary">
                     {exp.duration}
@@ -253,9 +261,9 @@ export const Experience = () => {
                 {/* Achievements */}
                 <ul className="flex flex-col gap-5 text-text-secondary">
                   {exp.achievements.map((item, i) => (
-                    <li key={i} className="achievement-item flex gap-4 items-start group/item will-change-transform">
+                    <li key={i} className="achievement-item flex gap-4 items-start group/item">
                       <div className="w-10 h-10 rounded-full bg-black/5 flex items-center justify-center flex-shrink-0 text-text-dark group-hover/item:bg-primary group-hover/item:text-white transition-colors duration-300">
-                        {item.icon}
+                        {iconMap[item.icon]}
                       </div>
                       <span className="text-sm md:text-base leading-relaxed pt-2 font-medium">{item.text}</span>
                     </li>
@@ -266,7 +274,7 @@ export const Experience = () => {
 
             {/* RIGHT: Workspace Image Composition */}
             <div className="md:pl-12 lg:pl-20 relative pl-16 md:pl-12 flex items-start md:pt-16">
-              <div className="exp-image w-full aspect-square md:aspect-[4/5] rounded-[2rem] overflow-hidden relative shadow-[0_30px_60px_rgba(0,0,0,0.15)] group cursor-none will-change-transform" data-cursor-text="WORKSPACE">
+              <div className="exp-image w-full aspect-square md:aspect-[4/5] rounded-[2rem] overflow-hidden relative shadow-[0_30px_60px_rgba(0,0,0,0.15)] group cursor-none" data-cursor-text="WORKSPACE">
                 <img 
                   src="https://images.unsplash.com/photo-1555099962-4199c345e5dd?w=800&q=75&fm=webp"
                   alt="Developer workspace at SMEC Technologies"

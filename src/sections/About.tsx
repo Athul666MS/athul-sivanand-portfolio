@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SplitType from 'split-type';
@@ -56,11 +56,11 @@ export const About = () => {
         
         {/* LEFT COLUMN: Title + Description */}
         <div className="w-full">
-          <h2 ref={titleRef} className="text-[clamp(2.5rem,5vw,4rem)] font-serif uppercase tracking-tight leading-[0.9] mb-8 md:mb-10 will-change-transform break-words" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 120%, 0% 120%)' }}>
+          <h2 ref={titleRef} className="text-[clamp(2.5rem,5vw,4rem)] font-serif uppercase tracking-tight leading-[0.9] mb-8 md:mb-10 break-words" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 120%, 0% 120%)' }}>
             <span className="text-primary italic normal-case block font-medium mb-2">The</span>
             <span className="block">SUMMARY</span>
           </h2>
-          <p ref={textRef} className="text-lg sm:text-xl md:text-2xl lg:text-2xl font-sans text-text-secondary leading-relaxed max-w-xl will-change-transform">
+          <p ref={textRef} className="text-lg sm:text-xl md:text-2xl lg:text-2xl font-sans text-text-secondary leading-relaxed max-w-xl">
             Python Full Stack Developer with deep expertise in building back-end systems, REST APIs, and responsive web applications. I specialize in Django, React, and microservices architecture, focused on delivering clean, scalable solutions with high performance and continuous innovation.
           </p>
         </div>
@@ -70,7 +70,7 @@ export const About = () => {
           
           {/* Stat 1: Major Projects */}
           <div className="stat-card flex flex-col justify-between p-6 md:p-8 rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/5 to-transparent hover:border-primary/40 hover:shadow-[0_20px_60px_rgba(198,128,69,0.08)] transition-all duration-500 group cursor-none" data-cursor-text="WOW">
-            <span className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black font-sans text-primary group-hover:scale-105 transition-transform origin-left will-change-transform leading-none">3+</span>
+            <span className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black font-sans text-primary group-hover:scale-105 transition-transform origin-left leading-none">3+</span>
             <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-text-secondary mt-4">Major Projects</span>
           </div>
           
@@ -82,13 +82,13 @@ export const About = () => {
           
           {/* Stat 3: Junior Developer */}
           <div className="stat-card flex flex-col justify-between p-6 md:p-8 rounded-2xl border border-text-dark/8 bg-gradient-to-br from-white to-background/50 hover:border-primary/30 hover:shadow-[0_20px_60px_rgba(0,0,0,0.05)] transition-all duration-500 group cursor-none" data-cursor-text="SMEC">
-            <span className="text-2xl sm:text-3xl md:text-4xl font-black font-sans text-text-dark group-hover:text-primary transition-colors will-change-transform leading-tight">Junior<br/>Developer</span>
+            <span className="text-2xl sm:text-3xl md:text-4xl font-black font-sans text-text-dark group-hover:text-primary transition-colors leading-tight">Junior<br/>Developer</span>
             <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-text-secondary mt-4">Experience</span>
           </div>
           
           {/* Stat 4: REST API */}
           <div className="stat-card flex flex-col justify-between p-6 md:p-8 rounded-2xl border border-text-dark/8 bg-gradient-to-br from-white to-background/50 hover:border-primary/30 hover:shadow-[0_20px_60px_rgba(0,0,0,0.05)] transition-all duration-500 group cursor-none" data-cursor-text="BACKEND">
-            <span className="text-2xl sm:text-3xl md:text-4xl font-black font-sans text-text-dark group-hover:text-primary transition-colors will-change-transform leading-tight">REST API</span>
+            <span className="text-2xl sm:text-3xl md:text-4xl font-black font-sans text-text-dark group-hover:text-primary transition-colors leading-tight">REST API</span>
             <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-text-secondary mt-4">Specialist</span>
           </div>
 

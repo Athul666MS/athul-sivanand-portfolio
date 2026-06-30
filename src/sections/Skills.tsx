@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { m, useScroll, useTransform } from 'framer-motion';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -171,7 +171,7 @@ export const Skills = () => {
                 key={idx}
                 ref={(el) => { cardsRef.current[idx] = el; }}
                 className={`
-                  group relative p-6 md:p-8 rounded-[2rem] transition-all duration-500 overflow-hidden cursor-none will-change-transform
+                  group relative p-6 md:p-8 rounded-[2rem] transition-all duration-500 overflow-hidden cursor-none
                   md:hover:-translate-y-4
                   md:hover:shadow-[0_20px_60px_rgba(198,128,69,0.25)]
                   bg-white/5 border border-white/10 md:hover:bg-white/10

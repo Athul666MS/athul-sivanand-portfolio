@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { m, useMotionValue, useSpring } from 'framer-motion';
 
 const SPRING_OUTER = { stiffness: 200, damping: 20, mass: 0.5 };

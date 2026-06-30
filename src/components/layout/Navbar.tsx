@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
 import { MagneticButton } from '../ui/MagneticButton';
-import { FiX } from 'react-icons/fi';
+
 
 const navLinks = [
   { name: 'Home', href: '#home', num: '01' },
@@ -12,6 +12,24 @@ const navLinks = [
   { name: 'Certifications', href: '#certifications', num: '06' },
   { name: 'Contact', href: '#contact', num: '07' },
 ];
+
+const menuVars = {
+  initial: { scaleY: 0 },
+  animate: { scaleY: 1, transition: { duration: 0.6, ease: [0.12, 0, 0.39, 0] as any } },
+  exit: { scaleY: 0, transition: { delay: 0.5, duration: 0.6, ease: [0.22, 1, 0.36, 1] as any } }
+};
+
+const containerVars = {
+  initial: { transition: { staggerChildren: 0.09, staggerDirection: -1 } },
+  open: { transition: { delayChildren: 0.3, staggerChildren: 0.09, staggerDirection: 1 } },
+  exit: { transition: { staggerChildren: 0.06, staggerDirection: -1 } }
+};
+
+const mobileLinkVars = {
+  initial: { y: "30vh", opacity: 0, transition: { duration: 0.5, ease: [0.37, 0, 0.63, 1] as any } },
+  open: { y: 0, opacity: 1, transition: { ease: [0, 0.55, 0.45, 1] as any, duration: 0.7 } },
+  exit: { y: "30vh", opacity: 0, transition: { duration: 0.4, ease: [0.37, 0, 0.63, 1] as any } }
+};
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -93,23 +111,7 @@ export const Navbar = () => {
     };
   }, [isOpen]);
 
-  const menuVars = {
-    initial: { scaleY: 0 },
-    animate: { scaleY: 1, transition: { duration: 0.6, ease: [0.12, 0, 0.39, 0] as any } },
-    exit: { scaleY: 0, transition: { delay: 0.5, duration: 0.6, ease: [0.22, 1, 0.36, 1] as any } }
-  };
 
-  const containerVars = {
-    initial: { transition: { staggerChildren: 0.09, staggerDirection: -1 } },
-    open: { transition: { delayChildren: 0.3, staggerChildren: 0.09, staggerDirection: 1 } },
-    exit: { transition: { staggerChildren: 0.06, staggerDirection: -1 } }
-  };
-
-  const mobileLinkVars = {
-    initial: { y: "30vh", opacity: 0, transition: { duration: 0.5, ease: [0.37, 0, 0.63, 1] as any } },
-    open: { y: 0, opacity: 1, transition: { ease: [0, 0.55, 0.45, 1] as any, duration: 0.7 } },
-    exit: { y: "30vh", opacity: 0, transition: { duration: 0.4, ease: [0.37, 0, 0.63, 1] as any } }
-  };
 
   return (
     <>
@@ -142,7 +144,7 @@ export const Navbar = () => {
                     transition={{ duration: 0.2 }}
                     className="text-4xl md:text-5xl"
                   >
-                    <FiX />
+                    <svg className="w-8 h-8 md:w-9 md:h-9" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
                   </m.span>
                 ) : (
                   <m.span

@@ -1,7 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { FiArrowUpRight } from 'react-icons/fi';
 
 gsap.registerPlugin(ScrollTrigger);
 const certs = [
@@ -107,7 +106,7 @@ export const Certifications = () => {
           {certs.map((cert, idx) => (
             <div
               key={idx}
-              className="cert-card group relative bg-white/60 backdrop-blur-2xl p-6 md:p-10 rounded-2xl md:rounded-[2rem] border border-white/80 shadow-[0_8px_30px_rgba(0,0,0,0.04)] transition-all duration-500 cursor-none will-change-transform md:hover:border-primary/30 md:hover:shadow-[0_20px_60px_rgba(198,128,69,0.1)] md:hover:-translate-y-2 flex flex-col justify-between h-full min-h-[300px]"
+              className="cert-card group relative bg-white/60 backdrop-blur-2xl p-6 md:p-10 rounded-2xl md:rounded-[2rem] border border-white/80 shadow-[0_8px_30px_rgba(0,0,0,0.04)] transition-all duration-500 cursor-none md:hover:border-primary/30 md:hover:shadow-[0_20px_60px_rgba(198,128,69,0.1)] md:hover:-translate-y-2 flex flex-col justify-between h-full min-h-[300px]"
               data-cursor-text="VERIFY"
             >
               {/* Hover gradient overlay */}
@@ -161,7 +160,7 @@ export const Certifications = () => {
                       className="inline-flex items-center gap-2 px-4 py-2 md:px-5 md:py-2.5 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-widest border border-black/10 text-text-dark bg-white/80 transition-all duration-300 md:hover:bg-primary md:hover:text-white md:hover:border-primary md:hover:shadow-[0_8px_25px_rgba(198,128,69,0.3)] md:group-hover:border-primary/30"
                     >
                       Verify
-                      <FiArrowUpRight className="w-3.5 h-3.5 md:w-4 md:h-4 transition-transform duration-300 md:group-hover:translate-x-0.5 md:group-hover:-translate-y-0.5" />
+                      <svg className="w-3.5 h-3.5 md:w-4 md:h-4 transition-transform duration-300 md:group-hover:translate-x-0.5 md:group-hover:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 17L17 7M17 7H7M17 7v10" /></svg>
                     </a>
                   </div>
                 </div>
