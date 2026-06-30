@@ -167,8 +167,8 @@ export const Experience = () => {
     <section id="experience" ref={sectionRef} className="py-20 md:py-32 lg:py-48 bg-background text-text-dark relative z-20 overflow-hidden">
       
       {/* Background atmosphere */}
-      <div className="absolute top-1/4 right-0 w-[50vw] h-[50vw] bg-primary/5 rounded-full blur-[150px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[40vw] h-[40vw] bg-black/3 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/4 right-0 w-[50vw] h-[50vw] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(198,128,69,0.05) 0%, transparent 70%)' }} />
+      <div className="absolute bottom-0 left-0 w-[40vw] h-[40vw] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(17,17,17,0.03) 0%, transparent 70%)' }} />
 
       <div className="max-w-[1920px] mx-auto px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 relative z-10">
         

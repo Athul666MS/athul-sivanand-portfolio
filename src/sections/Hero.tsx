@@ -185,8 +185,8 @@ export const Hero = () => {
           backgroundSize: '42px 42px, 56px 56px',
         }}
       />
-      <div className="absolute left-[-10vw] top-[18%] w-[34vw] h-[34vw] rounded-full bg-primary/[0.04] blur-[120px] pointer-events-none z-0" />
-      <div className="absolute left-[28%] bottom-[-18%] w-[28vw] h-[28vw] rounded-full bg-black/[0.035] blur-[110px] pointer-events-none z-0" />
+      <div className="absolute left-[-10vw] top-[18%] w-[34vw] h-[34vw] rounded-full pointer-events-none z-0" style={{ background: 'radial-gradient(circle, rgba(198,128,69,0.04) 0%, transparent 70%)' }} />
+      <div className="absolute left-[28%] bottom-[-18%] w-[28vw] h-[28vw] rounded-full pointer-events-none z-0" style={{ background: 'radial-gradient(circle, rgba(17,17,17,0.035) 0%, transparent 70%)' }} />
       <div className="absolute left-[8%] bottom-[18%] w-px h-36 bg-gradient-to-b from-transparent via-primary/[0.08] to-transparent pointer-events-none z-0" />
       
       {/* Giant low-opacity background text */}
@@ -216,32 +216,36 @@ export const Hero = () => {
         {/* ===== RIGHT SIDE ATMOSPHERE ===== */}
         <div className="col-start-8 col-end-13 row-start-1 row-end-4 pointer-events-none z-0 relative overflow-hidden">
           {/* Mesh gradients - soft and intentional */}
-          <div className="absolute top-[12%] right-[-8%] w-[30vw] h-[30vw] bg-primary/[0.05] rounded-full blur-[125px] mix-blend-multiply" />
-          <div className="absolute bottom-[24%] right-[2%] w-[24vw] h-[24vw] bg-primary/[0.04] rounded-full blur-[105px]" />
-          <div className="absolute top-[48%] right-[16%] w-[16vw] h-[16vw] bg-black/[0.035] rounded-full blur-[85px]" />
-          <div className="absolute top-[34%] right-[28%] w-28 h-28 rounded-full bg-primary/[0.055] blur-3xl" />
+          <div className="absolute top-[12%] right-[-8%] w-[30vw] h-[30vw] rounded-full mix-blend-multiply" style={{ background: 'radial-gradient(circle, rgba(198,128,69,0.05) 0%, transparent 70%)' }} />
+          <div className="absolute bottom-[24%] right-[2%] w-[24vw] h-[24vw] rounded-full" style={{ background: 'radial-gradient(circle, rgba(198,128,69,0.04) 0%, transparent 70%)' }} />
+          <div className="absolute top-[48%] right-[16%] w-[16vw] h-[16vw] rounded-full" style={{ background: 'radial-gradient(circle, rgba(17,17,17,0.035) 0%, transparent 70%)' }} />
+          <div className="absolute top-[34%] right-[28%] w-28 h-28 rounded-full" style={{ background: 'radial-gradient(circle, rgba(198,128,69,0.055) 0%, transparent 70%)' }} />
           <div className="absolute inset-y-[18%] right-[36%] w-px bg-gradient-to-b from-transparent via-black/[0.06] to-transparent" />
           
           {/* Soft glow particles - organic and subtle */}
           <m.div 
             animate={PARTICLE_1_ANIMATE}
             transition={PARTICLE_1_TRANSITION}
-            className="absolute top-[24%] right-[18%] w-16 h-16 bg-primary/[0.045] rounded-full blur-xl"
+            className="absolute top-[24%] right-[18%] w-16 h-16 rounded-full"
+            style={{ background: 'radial-gradient(circle, rgba(198,128,69,0.045) 0%, transparent 70%)' }}
           />
           <m.div 
             animate={PARTICLE_2_ANIMATE}
             transition={PARTICLE_2_TRANSITION}
-            className="absolute bottom-[34%] right-[28%] w-24 h-24 bg-primary/[0.035] rounded-full blur-2xl"
+            className="absolute bottom-[34%] right-[28%] w-24 h-24 rounded-full"
+            style={{ background: 'radial-gradient(circle, rgba(198,128,69,0.035) 0%, transparent 70%)' }}
           />
           <m.div 
             animate={PARTICLE_3_ANIMATE}
             transition={PARTICLE_3_TRANSITION}
-            className="absolute top-[55%] right-[12%] w-10 h-10 bg-primary/[0.05] rounded-full blur-lg"
+            className="absolute top-[55%] right-[12%] w-10 h-10 rounded-full"
+            style={{ background: 'radial-gradient(circle, rgba(198,128,69,0.05) 0%, transparent 70%)' }}
           />
           <m.div
             animate={PARTICLE_4_ANIMATE}
             transition={PARTICLE_4_TRANSITION}
-            className="absolute top-[68%] right-[40%] w-7 h-7 bg-black/[0.045] rounded-full blur-md"
+            className="absolute top-[68%] right-[40%] w-7 h-7 rounded-full"
+            style={{ background: 'radial-gradient(circle, rgba(17,17,17,0.045) 0%, transparent 70%)' }}
           />
 
           {/* Subtle geometric lines */}
@@ -366,8 +370,8 @@ export const Hero = () => {
       <div className="lg:hidden relative z-10 w-full min-h-screen px-4 sm:px-8 flex flex-col items-center pt-28 pb-20 text-center overflow-hidden">
         
         {/* Mobile Atmosphere */}
-        <div className="absolute top-[10%] right-[-20%] w-[60vw] h-[60vw] bg-primary/[0.05] rounded-full blur-[80px] pointer-events-none" />
-        <div className="absolute bottom-[20%] left-[-15%] w-[40vw] h-[40vw] bg-primary/[0.04] rounded-full blur-[60px] pointer-events-none" />
+        <div className="absolute top-[10%] right-[-20%] w-[60vw] h-[60vw] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(198,128,69,0.05) 0%, transparent 70%)' }} />
+        <div className="absolute bottom-[20%] left-[-15%] w-[40vw] h-[40vw] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(198,128,69,0.04) 0%, transparent 70%)' }} />
         <div className="absolute inset-0 opacity-[0.035] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 30% 30%, rgba(198,128,69,0.5) 0 1px, transparent 1px)', backgroundSize: '34px 34px' }} />
 
         {/* Mobile Framing Top */}

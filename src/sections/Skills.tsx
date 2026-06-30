@@ -191,7 +191,7 @@ export const Skills = () => {
                 />
 
                 {/* Hover Glow Effect */}
-                <div className="hidden md:block absolute inset-0 bg-gradient-to-br from-primary/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-2xl pointer-events-none"></div>
+                <div className="hidden md:block absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" style={{ background: 'radial-gradient(circle at 30% 30%, rgba(198,128,69,0.15) 0%, transparent 70%)' }}></div>
 
                 <h3 className="text-2xl md:text-3xl font-bold font-sans mb-6 md:mb-8 transition-colors relative z-10 text-white md:group-hover:text-primary">
                   {skillGroup.category}

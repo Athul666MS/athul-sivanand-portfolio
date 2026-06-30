@@ -86,8 +86,8 @@ export const Certifications = () => {
       className="py-20 md:py-32 lg:py-48 bg-[#ECECEC] text-[#111111] relative z-20 overflow-hidden"
     >
       {/* Background Ambient Glow */}
-      <div className="absolute top-1/3 left-0 w-[40vw] h-[40vw] bg-primary/5 rounded-full blur-[150px] pointer-events-none"></div>
-      <div className="absolute bottom-0 right-0 w-[35vw] h-[35vw] bg-black/5 rounded-full blur-[120px] pointer-events-none"></div>
+      <div className="absolute top-1/3 left-0 w-[40vw] h-[40vw] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(198,128,69,0.05) 0%, transparent 70%)' }}></div>
+      <div className="absolute bottom-0 right-0 w-[35vw] h-[35vw] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(17,17,17,0.05) 0%, transparent 70%)' }}></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 relative z-10">
         {/* Section Heading */}

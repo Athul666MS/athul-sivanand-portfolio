@@ -20,16 +20,14 @@ export function useSmoothScroll() {
 
     lenis.on('scroll', ScrollTrigger.update);
 
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000);
-    });
+    let rafId: number;
+    const raf = (time: number) => {
+      lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
+    };
+    rafId = requestAnimationFrame(raf);
 
     gsap.ticker.lagSmoothing(0);
-
-    // Normalize scroll on mobile for consistent ScrollTrigger behavior
-    if (isMobile) {
-      ScrollTrigger.normalizeScroll(true);
-    }
 
     // ─── Refresh ScrollTrigger after layout-affecting events ───
 
@@ -89,15 +87,12 @@ export function useSmoothScroll() {
 
     return () => {
       lenis.destroy();
-      gsap.ticker.remove(lenis.raf);
+      cancelAnimationFrame(rafId);
       window.removeEventListener('resize', handleResize);
       clearTimeout(resizeTimeout);
       clearTimeout(mutationRefreshTimer);
       clearTimeout(stopObserverTimer);
       observer.disconnect();
-      if (isMobile) {
-        ScrollTrigger.normalizeScroll(false);
-      }
     };
   }, []);
 }
