@@ -6,7 +6,7 @@ import { MagneticButton } from '../components/ui/MagneticButton';
 
 import resumePdf from '../docs/resume.pdf';
 
-const HERO_IMAGE = '/hero.webp';
+const HERO_IMAGE = '/hero.jpeg';
 const HERO_WIDTH = 1120;
 const HERO_HEIGHT = 1400;
 
